@@ -1,4 +1,5 @@
-<footer class="text-center py-3 fixed-bottom border-top" style="background-color: #F3F4F6; font-family: 'Nunito Sans', sans-serif;">
+<footer class="text-center py-3 border-top" 
+        style="background-color: #F3F4F6; font-family: 'Nunito Sans', sans-serif;">
     <div class="container">
         <div class="d-flex justify-content-center align-items-center gap-3 mb-1 text-dark">
             <span class="small">
