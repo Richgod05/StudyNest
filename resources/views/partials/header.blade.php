@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1E3A8A;">
+    <div class="container">
+        <!-- Brand / Logo -->
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url('/') }}">
+            <img src="{{ asset('images/studynest1 .png') }}" alt="StudyNest Logo" height="64" class="me-2">
+            <span class="fs-3">StudyNest</span>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav Links (Centered) -->
+        <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+            <ul class="navbar-nav gap-3">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url('/') }}">StudyNest</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Learning Hub</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Nest Chat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Nest Drop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Our Team</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
