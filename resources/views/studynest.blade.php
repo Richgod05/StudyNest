@@ -28,23 +28,20 @@
     </div>
 </section>
 
-<!-- About Us Section -->
+<!-- About Us Navigation -->
 <section class="about-us py-5 mb-5" style="background-color: #f9fafb;">
     <div class="container text-center">
         <h2 class="fw-bold position-relative d-inline-block pb-2 mb-4" style="color: #1E3A8A;">
             About Us
             <span style="position:absolute; left:0; right:0; bottom:0; height:3px; background:#1E3A8A; width:60%; margin:auto;"></span>
         </h2>
-        <h5 class="text-muted mb-4">Who we are?</h5>
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <p class="lead">
-                    At <strong>StudyNest</strong>, we believe that every learner has the potential to soar.  
-                    Our mission is to transform curiosity into confidence by offering a vibrant, supportive space  
-                    for students to connect, share resources, and grow together.
-                </p>
-            </div>
-        </div>
+
+        <!-- Simple Navbar -->
+        <nav class="nav justify-content-center mt-4">
+            <a class="nav-link fw-semibold text-primary" href="#who-we-are">Who We Are</a>
+            <a class="nav-link fw-semibold text-primary" href="#our-mission">Our Mission</a>
+            <a class="nav-link fw-semibold text-primary" href="#our-vision">Our Vision</a>
+        </nav>
     </div>
 </section>
 
@@ -96,9 +93,34 @@
             <!-- Contact Info -->
             <div class="col-md-5 mb-4 mb-md-0">
                 <div class="p-4 border rounded shadow-sm h-100 bg-white">
-                    <p class="mb-3"><i class="bi bi-envelope-fill text-primary me-2"></i> <strong>Email:</strong> info@studynest.com</p>
-                    <p class="mb-3"><i class="bi bi-telephone-fill text-primary me-2"></i> <strong>Phone:</strong> +255 757 994 519</p>
-                    <p class="mb-0"><i class="bi bi-geo-alt-fill text-primary me-2"></i> <strong>Location:</strong> Tanzania, Dodoma - NaneNane Bus-Terminal</p>
+                    <p class="mb-3">
+                        <i class="bi bi-envelope-fill text-primary me-2"></i>
+                        <strong>Email:</strong> info@studynest.com
+                    </p>
+                    <p class="mb-3">
+                        <i class="bi bi-telephone-fill text-primary me-2"></i>
+                        <strong>Phone:</strong> +255 757 994 519
+                    </p>
+                    <p class="mb-4">
+                        <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                        <strong>Location:</strong> Tanzania, Dodoma - NaneNane Bus-Terminal
+                    </p>
+
+                    <!-- Social Media Icons -->
+                    <div class="mt-3">
+                        <a href="https://facebook.com/YourPage" target="_blank" class="text-primary fs-4 me-3">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/YourHandle" target="_blank" class="text-info fs-4 me-3">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com/YourProfile" target="_blank" class="text-danger fs-4 me-3">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/YourProfile" target="_blank" class="text-primary fs-4">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
 
