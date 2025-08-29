@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-<section class="nest-chat py-5" style="background-color: #f9fafb;">
+<section class="nest-chat py-5 mb-5" style="background-color: #f9fafb;"> {{-- Added mb-5 here --}}
     <div class="container">
         <!-- Page Header -->
         <div class="text-center mb-5">
@@ -32,7 +32,7 @@
             <!-- Chat Feed -->
             <div class="col-lg-8">
                 @foreach($questions as $question)
-                <div class="card mb-4 shadow-sm border-0">
+                <div class="card mb-5 shadow-sm border-0"> {{-- Changed mb-4 to mb-5 --}}
                     <div class="card-body">
                         <!-- Question -->
                         <h5 class="fw-bold" style="color:#1E3A8A;">{{ $question->title }}</h5>
@@ -78,7 +78,7 @@
                 @endforeach
 
                 <!-- Pagination -->
-                <div class="mt-4">
+                <div class="mt-4 mb-5"> {{-- Added mb-5 here too for bottom breathing room --}}
                     {{ $questions->links() }}
                 </div>
             </div>
