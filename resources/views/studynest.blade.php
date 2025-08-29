@@ -27,8 +27,7 @@
         </div>
     </div>
 </section>
-
-<!-- About Us Navigation -->
+    <!-- About Us Main Section -->
 <section class="about-us py-5 mb-5" style="background-color: #f9fafb;">
     <div class="container text-center">
         <h2 class="fw-bold position-relative d-inline-block pb-2 mb-4" style="color: #1E3A8A;">
@@ -36,14 +35,63 @@
             <span style="position:absolute; left:0; right:0; bottom:0; height:3px; background:#1E3A8A; width:60%; margin:auto;"></span>
         </h2>
 
-        <!-- Simple Navbar -->
-        <nav class="nav justify-content-center mt-4">
-            <a class="nav-link fw-semibold text-primary" href="#who-we-are">Who We Are</a>
-            <a class="nav-link fw-semibold text-primary" href="#our-mission">Our Mission</a>
-            <a class="nav-link fw-semibold text-primary" href="#our-vision">Our Vision</a>
+        <!-- Tab Navigation -->
+        <nav class="nav justify-content-center mt-4 mb-4">
+            <a class="nav-link fw-semibold active-link" data-tab="who-we-are">Who We Are</a>
+            <a class="nav-link fw-semibold" data-tab="our-mission">Our Mission</a>
+            <a class="nav-link fw-semibold" data-tab="our-vision">Our Vision</a>
         </nav>
+
+        <!-- Tab Content -->
+        <div id="tab-content">
+            <!-- Who We Are -->
+            <div class="tab-pane" id="who-we-are">
+                <div class="col-lg-8 mx-auto">
+                    <ul class="list-unstyled fs-6 text-center">
+                        <li class="mb-3"><i class="bi bi-people-fill text-primary me-2"></i><strong>Student‑First Learning Hub</strong> — Built around students’ needs for accessible and engaging learning.</li>
+                        <li class="mb-3"><i class="bi bi-journals text-primary me-2"></i><strong>Curated Resources & Guides</strong> — Organized study materials to help you learn faster and smarter.</li>
+                        <li class="mb-3"><i class="bi bi-chat-dots-fill text-primary me-2"></i><strong>Supportive Peer Community</strong> — Connect, share ideas, and get help when you need it.</li>
+                        <li class="mb-3"><i class="bi bi-lightning-charge-fill text-primary me-2"></i><strong>Fast, Mobile‑Friendly Access</strong> — Learn anywhere, anytime, on any device.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Our Mission -->
+            <div class="tab-pane d-none" id="our-mission">
+                <div class="col-lg-8 mx-auto">
+                    <p class="fs-6 text-muted text-center">
+                        Our mission is to empower students by providing a trusted platform where learning is collaborative, resources are accessible, and curiosity is encouraged. We aim to bridge the gap between knowledge seekers and the tools they need to succeed.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Our Vision -->
+            <div class="tab-pane d-none" id="our-vision">
+                <div class="col-lg-8 mx-auto">
+                    <p class="fs-6 text-muted text-center">
+                        We envision a world where every learner has equal access to quality education, supportive communities, and the confidence to achieve their goals. StudyNest strives to be the go‑to hub for students worldwide, fostering growth, innovation, and lifelong learning.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+<style>
+    .nav-link {
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .nav-link:hover {
+        background-color: #e5e7eb;
+    }
+    .active-link {
+        background-color: #1E3A8A;
+        color: #fff !important;
+    }
+</style>
 
 <!-- Testimonials Section -->
 <section class="testimonials py-5 mb-5" style="background-color: #ffffff;">
@@ -144,4 +192,26 @@
         </div>
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const links = document.querySelectorAll('.about-us .nav-link');
+        const panes = document.querySelectorAll('.about-us .tab-pane');
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                // Remove active state from all links
+                links.forEach(l => l.classList.remove('active-link'));
+                // Hide all panes
+                panes.forEach(p => p.classList.add('d-none'));
+
+                // Activate clicked link
+                link.classList.add('active-link');
+                // Show the selected pane
+                document.getElementById(link.dataset.tab).classList.remove('d-none');
+            });
+        });
+    });
+</script>
+
 @endsection
