@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('who-we-are', [HomepageController::class, 'whoWeare'])->name('studynest.who-we-are');
+Route::get('nestchat', [HomepageController::class, 'nestChat'])->name('studynest.nestchat');

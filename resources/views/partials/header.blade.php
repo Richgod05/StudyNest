@@ -29,7 +29,7 @@
                     <a class="nav-link text-white" href="#">Learning Hub</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Nest Chat</a>
+                    <a class="nav-link text-white" href="{{ route('studynest.nestchat') }}">Nest Chat</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Nest Drop</a>

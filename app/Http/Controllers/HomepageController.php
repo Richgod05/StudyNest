@@ -11,8 +11,8 @@ class HomepageController extends Controller
         return view('whoweare');
     }
 
-    public function ourMission(){
-        return view('ourmission');
+    public function nestChat(){
+        return view('nestchat');
     }
 
     public function ourVision(){
