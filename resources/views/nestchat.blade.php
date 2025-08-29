@@ -15,7 +15,7 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
                         <h5 class="fw-bold mb-3" style="color:#1E3A8A;">Ask a Question</h5>
-                        <form method="POST" action="#">
+                        <form method="POST" action="{{ route('nestchat.ask') }}">
                             @csrf
                             <div class="mb-3">
                                 <input type="text" name="title" class="form-control" placeholder="Question title..." required>
@@ -41,7 +41,7 @@
 
                         <!-- Actions -->
                         <div class="mt-3 d-flex align-items-center gap-3">
-                            <form method="POST" action="#">
+                            <form method="POST" action="{{ route('nestchat.like', $question->id) }}">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-hand-thumbs-up"></i> Like ({{ $question->likes_count }})
