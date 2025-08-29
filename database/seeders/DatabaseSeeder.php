@@ -20,4 +20,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
     }
+
+    public function runB(): void
+    {
+    // Make sure users exist first
+    \App\Models\User::factory()->count(5)->create();
+
+    // Create 20 questions
+    \App\Models\Question::factory()->count(20)->create();
+    }
 }
