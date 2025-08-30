@@ -16,7 +16,7 @@ Route::get('/nest-chat/{id}', [HomepageController::class, 'showQuestion'])->name
 Route::get('/nestchat/stats/{id}', [HomepageController::class, 'stats']);
 Route::get('/nestchat', [HomepageController::class, 'search'])->name('nestchat.index');
 
-    Route::get('/nestdrop', [MaterialController::class, 'index'])->name('materials.index');
+    Route::get('/nestdrop', [MaterialController::class, 'index'])->name('nestdrop.index');
     Route::post('/nestdrop', [MaterialController::class, 'store'])->name('materials.store');
     Route::post('/nestdrop/{material}/like', [MaterialController::class, 'like'])->name('materials.like');
     Route::post('/nestdrop/{material}/save', [MaterialController::class, 'save'])->name('materials.save');

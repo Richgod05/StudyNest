@@ -12,7 +12,7 @@ class MaterialController extends Controller
     public function index()
     {
         $materials = Material::with('user')->latest()->paginate(10);
-        return view('materials.index', compact('materials'));
+        return view('nestdrop.index', compact('nestdrop'));
     }
 
     public function store(Request $request)
