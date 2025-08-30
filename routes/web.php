@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\MaterialController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,3 +15,9 @@ Route::post('/nest-chat/{id}/like', [HomepageController::class, 'likeQuestion'])
 Route::get('/nest-chat/{id}', [HomepageController::class, 'showQuestion'])->name('nestchat.show');
 Route::get('/nestchat/stats/{id}', [HomepageController::class, 'stats']);
 Route::get('/nestchat', [HomepageController::class, 'search'])->name('nestchat.index');
+
+    Route::get('/nestdrop', [MaterialController::class, 'index'])->name('materials.index');
+    Route::post('/nestdrop', [MaterialController::class, 'store'])->name('materials.store');
+    Route::post('/nestdrop/{material}/like', [MaterialController::class, 'like'])->name('materials.like');
+    Route::post('/nestdrop/{material}/save', [MaterialController::class, 'save'])->name('materials.save');
+    Route::post('/nestdrop/{material}/report', [MaterialController::class, 'report'])->name('materials.report');
