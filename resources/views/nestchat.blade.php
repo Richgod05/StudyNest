@@ -5,7 +5,7 @@
     <div class="container">
         <!-- Page Header -->
         <div class="text-center mb-5">
-            <h2 class="fw-bold" style="color:#1E3A8A; text-decoration: line-through;">Nest Chat</h2>
+            <h2 class="fw-bold" style="color:#1E3A8A; text-decoration: underline;">Nest Chat</h2>
             <p class="text-muted">Ask questions, share answers, and connect with the StudyNest community</p>
         </div>
 
