@@ -9,6 +9,16 @@
             <p class="text-muted">Ask questions, share answers, and connect with the StudyNest community</p>
         </div>
 
+        <!-- Search Bar -->
+        <div class="mb-4 d-flex justify-content-center">
+            <form method="GET" action="{{ route('nestchat.index') }}" class="d-flex search-form">
+                <input type="text" name="search" class="form-control me-2"
+                    placeholder="Search questions, replies, or keywords..."
+                    value="{{ request('search') }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
         <div class="row">
             <!-- Ask Question Form -->
             <div class="col-lg-4 mb-4">
@@ -35,8 +45,8 @@
                 <div class="card mb-5 shadow-sm border-0 fade-in" data-question-id="{{ $question->id }}">
                     <div class="card-body">
                         <!-- Question -->
-                        <h5 class="fw-bold" style="color:#1E3A8A;">{{ $question->title }}</h5>
-                        <p class="text-muted mb-2">{{ $question->body }}</p>
+                        <h5 class="fw-bold" style="color:#1E3A8A;">{!! $question->title !!}</h5>
+                        <p class="text-muted mb-2">{!! $question->body !!}</p>
                         <small class="text-secondary">
                             Asked by {{ $question->user->name }} • 
                             <span class="time" data-time="{{ $question->created_at }}">{{ $question->created_at->diffForHumans() }}</span>
@@ -67,7 +77,7 @@
                             <h6 class="fw-bold">Replies</h6>
                             @forelse($question->replies as $reply)
                                 <div class="p-3 mb-2 bg-light rounded">
-                                    <p class="mb-1">{{ $reply->body }}</p>
+                                    <p class="mb-1">{!! $reply->body !!}</p>
                                     <small class="text-secondary">By {{ $reply->user->name }} • {{ $reply->created_at->diffForHumans() }}</small>
                                 </div>
                             @empty
@@ -139,6 +149,19 @@
         background-color: #1E3A8A;
         color: white;
         transform: scale(1.05);
+    }
+    .search-form {
+        width: 60%;
+        max-width: 600px;
+    }
+    @media (max-width: 768px) {
+        .search-form {
+            width: 100%;
+        }
+    }
+    .highlighted {
+        color: #1E3A8A;
+        font-weight: bold;
     }
 </style>
 @endsection

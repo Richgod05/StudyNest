@@ -116,6 +116,43 @@ class HomepageController extends Controller
         'time'    => $question->created_at->diffForHumans()
     ]);
     }
+public function search(Request $request)
+{
+    $search = $request->input('search');
+
+    $questions = Question::with(['user', 'replies.user'])
+        ->when($search, function ($query) use ($search) {
+            $query->where('title', 'like', "%{$search}%")
+                  ->orWhere('body', 'like', "%{$search}%")
+                  ->orWhereHas('replies', function ($q) use ($search) {
+                      $q->where('body', 'like', "%{$search}%");
+                  });
+        })
+        ->latest()
+        ->paginate(10);
+
+    // Highlight matches
+    if ($search) {
+        $highlight = function ($text) use ($search) {
+            return preg_replace(
+                "/(" . preg_quote($search, '/') . ")/i",
+                '<mark>$1</mark>',
+                $text
+            );
+        };
+
+        foreach ($questions as $question) {
+            $question->title = $highlight($question->title);
+            $question->body = $highlight($question->body);
+
+            foreach ($question->replies as $reply) {
+                $reply->body = $highlight($reply->body);
+            }
+        }
+    }
+
+    return view('nestchat', compact('questions', 'search'));
+}
 }
 
 
