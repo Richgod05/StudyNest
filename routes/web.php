@@ -12,3 +12,4 @@ Route::post('/nest-chat/ask', [HomepageController::class, 'askQuestion'])->name(
 Route::post('/nest-chat/{id}/reply', [HomepageController::class, 'replyToQuestion'])->name('nestchat.reply');
 Route::post('/nest-chat/{id}/like', [HomepageController::class, 'likeQuestion'])->name('nestchat.like');
 Route::get('/nest-chat/{id}', [HomepageController::class, 'showQuestion'])->name('nestchat.show');
+Route::get('/nestchat/stats/{id}', [HomepageController::class, 'stats']);

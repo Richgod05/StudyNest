@@ -92,9 +92,24 @@ class HomepageController extends Controller
      */
     public function showQuestion($id)
     {
-        $question = Question::with(['user', 'replies.user', 'likes'])
-            ->findOrFail($id);
+    $question = Question::with(['user', 'replies.user', 'likes'])
+        ->findOrFail($id);
 
-        return view('nest-chat-single', compact('question'));
+    // Increment the views count
+    $question->increment('views_count');
+
+    return view('nest-chat-single', compact('question'));
+    }
+    public function stats($id)
+    {
+    $question = Question::withCount(['likes', 'replies'])
+        ->findOrFail($id);
+
+    return response()->json([
+        'views' => $question->views_count,
+        'likes' => $question->likes_count,
+        'replies' => $question->replies_count,
+        'time' => $question->created_at->diffForHumans()
+    ]);
     }
 }

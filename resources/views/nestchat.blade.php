@@ -1,18 +1,18 @@
 @extends('layouts.layout')
 
 @section('content')
-<section class="nest-chat py-5 mb-5" style="background-color: #f9fafb;"> {{-- Added mb-5 here --}}
+<section class="nest-chat py-5 mb-5" style="background-color: #f9fafb;">
     <div class="container">
         <!-- Page Header -->
         <div class="text-center mb-5">
-            <h2 class="fw-bold" style="color:#1E3A8A;">Nest Chat</h2>
+            <h2 class="fw-bold" style="color:#1E3A8A; text-decoration: line-through;">Nest Chat</h2>
             <p class="text-muted">Ask questions, share answers, and connect with the StudyNest community</p>
         </div>
 
         <div class="row">
             <!-- Ask Question Form -->
             <div class="col-lg-4 mb-4">
-                <div class="card shadow-sm border-0">
+                <div class="card shadow-sm border-0 fade-in">
                     <div class="card-body">
                         <h5 class="fw-bold mb-3" style="color:#1E3A8A;">Ask a Question</h5>
                         <form method="POST" action="{{ route('nestchat.ask') }}">
@@ -32,19 +32,29 @@
             <!-- Chat Feed -->
             <div class="col-lg-8">
                 @foreach($questions as $question)
-                <div class="card mb-5 shadow-sm border-0"> {{-- Changed mb-4 to mb-5 --}}
+                <div class="card mb-5 shadow-sm border-0 fade-in" data-question-id="{{ $question->id }}">
                     <div class="card-body">
                         <!-- Question -->
                         <h5 class="fw-bold" style="color:#1E3A8A;">{{ $question->title }}</h5>
                         <p class="text-muted mb-2">{{ $question->body }}</p>
-                        <small class="text-secondary">Asked by {{ $question->user->name }} • {{ $question->created_at->diffForHumans() }}</small>
+                        <small class="text-secondary">
+                            Asked by {{ $question->user->name }} • 
+                            <span class="time" data-time="{{ $question->created_at }}">{{ $question->created_at->diffForHumans() }}</span>
+                        </small>
+
+                        <!-- Stats -->
+                        <div class="mt-2 text-muted small">
+                            👁 <span class="views-count">{{ $question->views_count }}</span> views •
+                            💬 <span class="replies-count">{{ $question->replies_count }}</span> replies •
+                            👍 <span class="likes-count">{{ $question->likes_count }}</span> likes
+                        </div>
 
                         <!-- Actions -->
                         <div class="mt-3 d-flex align-items-center gap-3">
-                            <form method="POST" action="{{ route('nestchat.like', $question->id) }}">
+                            <form method="POST" action="{{ route('nestchat.like', $question->id) }}" class="like-form">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-outline-primary">
-                                    <i class="bi bi-hand-thumbs-up"></i> Like ({{ $question->likes_count }})
+                                    <i class="bi bi-hand-thumbs-up"></i> Like
                                 </button>
                             </form>
                             <button class="btn btn-sm btn-outline-secondary" onclick="shareQuestion('{{ route('nestchat.show', $question->id) }}')">
@@ -66,7 +76,7 @@
                         </div>
 
                         <!-- Reply Form -->
-                        <form method="POST" action="{{ route('nestchat.reply', $question->id) }}" class="mt-3">
+                        <form method="POST" action="{{ route('nestchat.reply', $question->id) }}" class="mt-3 reply-form">
                             @csrf
                             <div class="input-group">
                                 <input type="text" name="body" class="form-control" placeholder="Write a reply..." required>
@@ -78,8 +88,8 @@
                 @endforeach
 
                 <!-- Pagination -->
-                <div class="mt-4 mb-5"> {{-- Added mb-5 here too for bottom breathing room --}}
-                    {{ $questions->links() }}
+                <div class="mt-4 mb-5 d-flex justify-content-center">
+                    {{ $questions->onEachSide(1)->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
         </div>
@@ -97,5 +107,38 @@
             prompt('Copy this link to share:', url);
         }
     }
+
+    // Auto-update stats every 5 seconds
+    setInterval(() => {
+        document.querySelectorAll('[data-question-id]').forEach(card => {
+            let id = card.getAttribute('data-question-id');
+            fetch(`/nestchat/stats/${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    card.querySelector('.views-count').textContent = data.views;
+                    card.querySelector('.likes-count').textContent = data.likes;
+                    card.querySelector('.replies-count').textContent = data.replies;
+                    card.querySelector('.time').textContent = data.time;
+                });
+        });
+    }, 5000);
 </script>
+
+<style>
+    .fade-in {
+        animation: fadeInUp 0.6s ease-in-out;
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .pagination .page-link {
+        transition: all 0.3s ease;
+    }
+    .pagination .page-link:hover {
+        background-color: #1E3A8A;
+        color: white;
+        transform: scale(1.05);
+    }
+</style>
 @endsection
