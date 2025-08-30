@@ -17,13 +17,14 @@ class HomepageController extends Controller
      */
     public function index()
     {
-        $questions = Question::with(['user', 'replies.user'])
-            ->withCount('likes')
-            ->latest()
-            ->paginate(10);
+    $questions = Question::with(['user', 'replies.user'])
+        ->select('id', 'user_id', 'title', 'body', 'likes_count', 'replies_count', 'views_count', 'created_at')
+        ->latest()
+        ->paginate(10);
 
-        return view('nestchat', compact('questions'));
+    return view('nestchat', compact('questions'));
     }
+
 
     /**
      * Handle asking a new question
@@ -93,6 +94,7 @@ class HomepageController extends Controller
     public function showQuestion($id)
     {
     $question = Question::with(['user', 'replies.user', 'likes'])
+        ->select('id', 'user_id', 'title', 'body', 'likes_count', 'replies_count', 'views_count', 'created_at')
         ->findOrFail($id);
 
     // Increment the views count
@@ -100,16 +102,21 @@ class HomepageController extends Controller
 
     return view('nest-chat-single', compact('question'));
     }
+
+
     public function stats($id)
     {
-    $question = Question::withCount(['likes', 'replies'])
+    $question = Question::select('likes_count', 'replies_count', 'views_count', 'created_at')
         ->findOrFail($id);
 
     return response()->json([
-        'views' => $question->views_count,
-        'likes' => $question->likes_count,
+        'views'   => $question->views_count,
+        'likes'   => $question->likes_count,
         'replies' => $question->replies_count,
-        'time' => $question->created_at->diffForHumans()
+        'time'    => $question->created_at->diffForHumans()
     ]);
     }
 }
+
+
+
