@@ -32,7 +32,7 @@
                     <a class="nav-link text-white" href="{{ route('nestchat.index') }}">Nest Chat</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ 'nestdrop.index' }}">Nest Drop</a>
+                    <a class="nav-link text-white" href="{{ route('nestdrop.index') }}">Nest Drop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Our Team</a>
