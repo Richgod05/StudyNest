@@ -1,18 +1,19 @@
 <?php
 
-namespace Database\Seeders;
+// database/seeders/MaterialSeeder.php
 
-use App\Models\Material;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Material;
+use App\Models\User;
 
 class MaterialSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Material::factory()->count(100)->create();
+        // Ensure at least one user exists
+        User::factory()->count(5)->create();
+
+        // Create materials
+        Material::factory()->count(20)->create();
     }
 }

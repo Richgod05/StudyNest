@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\MaterialSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,4 +30,11 @@ class DatabaseSeeder extends Seeder
     // Create 20 questions
     \App\Models\Question::factory()->count(20)->create();
     }
+
+    // database/seeders/DatabaseSeeder.php
+
+public function runC(): void
+{
+    $this->call(MaterialSeeder::class);
+}
 }
