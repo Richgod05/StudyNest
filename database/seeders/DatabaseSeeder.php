@@ -19,6 +19,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Call additional seeders
+        $this->call([
+            MaterialSeeder::class,
+        ]);
+
     }
 
     public function runB(): void
@@ -28,12 +34,7 @@ class DatabaseSeeder extends Seeder
 
     // Create 20 questions
     \App\Models\Question::factory()->count(20)->create();
+
     }
 
-    // database/seeders/DatabaseSeeder.php
-
-public function runC(): void
-{
-    $this->call(MaterialSeeder::class);
-}
 }
