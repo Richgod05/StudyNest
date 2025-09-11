@@ -86,13 +86,16 @@
                         </div>
 
                         <!-- Reply Form -->
-                        <form method="POST" action="{{ route('nestchat.reply', $question->id) }}" class="mt-3 reply-form">
+                            <form method="POST" action="{{ route('nestchat.reply', $question->id) }}" class="mt-3 reply-form">
                             @csrf
-                            <div class="input-group">
-                                <input type="text" name="body" class="form-control" placeholder="Write a reply..." required>
-                                <button class="btn btn-primary" type="submit">Reply</button>
+                            <div class="mb-3">
+                            <textarea name="body" class="form-control reply-textarea" rows="4" placeholder="Write your full reply here..." required></textarea>
                             </div>
-                        </form>
+                            <div class="mb-3">
+                <button class="btn btn-primary w-100" type="submit">Reply</button>
+                </div>
+                </form>
+
                     </div>
                 </div>
                 @endforeach
@@ -107,6 +110,7 @@
 </section>
 
 <script>
+    
     function shareQuestion(url) {
         if (navigator.share) {
             navigator.share({
@@ -132,6 +136,15 @@
                 });
         });
     }, 5000);
+
+    // Auto-resize reply textarea
+    document.querySelectorAll('.reply-textarea').forEach(textarea => {
+        textarea.addEventListener('input', () => {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        });
+    });
+
 </script>
 
 <style>
@@ -142,6 +155,12 @@
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
+
+    .reply-textarea {
+    transition: height 0.2s ease;
+    resize: none;
+}
+
     .pagination .page-link {
         transition: all 0.3s ease;
     }
