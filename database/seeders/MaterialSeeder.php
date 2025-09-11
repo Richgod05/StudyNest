@@ -10,6 +10,7 @@ class MaterialSeeder extends Seeder
 {
     public function run(): void
     {
+        
         // Ensure at least one user exists
         User::factory()->count(5)->create();
 
