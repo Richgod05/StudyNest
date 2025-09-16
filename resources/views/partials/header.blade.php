@@ -35,7 +35,7 @@
                     <a class="nav-link text-white" href="{{ route('nestdrop.index') }}">Nest Drop</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Our Team</a>
+                    <a class="nav-link text-white" href="{{ url('/ourteam') }}">Our Team</a>
                 </li>
             </ul>
         </div>

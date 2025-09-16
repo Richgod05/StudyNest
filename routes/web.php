@@ -8,6 +8,11 @@ Route::get('/', function () {
     return view('studynest');
 });
 
+Route::get('/ourteam', function () {
+    return view('ourteam');
+});
+
+
 Route::get('/nest-chat', [HomepageController::class, 'index'])->name('nestchat.index');
 Route::post('/nest-chat/ask', [HomepageController::class, 'askQuestion'])->name('nestchat.ask');
 Route::post('/nest-chat/{id}/reply', [HomepageController::class, 'replyToQuestion'])->name('nestchat.reply');
