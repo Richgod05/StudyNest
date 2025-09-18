@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Material extends Model
 {
         use HasFactory;
+            protected $fillable = ['description', 'user_id', 'title','subject','tags','level','file_path'];
 
 
     public function user()
