@@ -63,73 +63,81 @@
             </div>
 
             <!-- Material Cards -->
-            <div class="col-lg-8">
-                @foreach($materials as $material)
-                <div class="card mb-5 shadow-sm border-0 fade-in-up hover-lift">
-                    <div class="card-body">
-                        <h5 class="fw-bold" style="color:#1E3A8A;">
-                            <i class="bi bi-journal-text me-2"></i> {{ $material->title }}
-                        </h5>
-                        <p class="text-muted mb-2">{{ $material->description }}</p>
-                        <small class="text-secondary">
-                            Shared by {{ $material->user->name }} • {{ $material->created_at->diffForHumans() }}
-                        </small>
+                <div class="col-lg-8">
+                    @foreach($materials as $material)
+                    <div class="card mb-5 shadow-sm border-0 fade-in-up hover-lift">
+                        <div class="card-body">
+                            <h5 class="fw-bold" style="color:#1E3A8A;">
+                                <i class="bi bi-journal-text me-2"></i> {{ $material->title }}
+                            </h5>
+                            <p class="text-muted mb-2">{{ $material->description }}</p>
+                            <small class="text-secondary">
+                                Shared by {{ $material->user->name }} • {{ $material->created_at->diffForHumans() }}
+                            </small>
 
-                        <!-- Tags -->
-                        <div class="mt-2">
-                            @foreach(explode(',', $material->tags) as $tag)
-                                <span class="badge bg-primary-subtle text-primary me-1">{{ trim($tag) }}</span>
-                            @endforeach
-                        </div>
+                            <!-- Tags -->
+                            <div class="mt-2">
+                                @foreach(explode(',', $material->tags) as $tag)
+                                    <span class="badge bg-primary-subtle text-primary me-1">{{ trim($tag) }}</span>
+                                @endforeach
+                            </div>
 
-                        <!-- Actions -->
-                        <div class="mt-3 d-flex align-items-center gap-2 flex-wrap">
-                            <form method="POST" action="{{ route('materials.like', $material->id) }}">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-outline-primary">
-                                    <i class="bi bi-hand-thumbs-up"></i> Like
-                                </button>
-                            </form>
-                            <form method="POST" action="{{ route('materials.save', $material->id) }}">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-outline-success">
-                                    <i class="bi bi-bookmark"></i> Save
-                                </button>
-                            </form>
-                            <form method="POST" action="{{ route('materials.report', $material->id) }}">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                    <i class="bi bi-flag"></i> Report
-                                </button>
-                            </form>
-                        </div>
+                            <!-- Actions -->
+                            <div class="mt-3 d-flex align-items-center gap-2 flex-wrap">
+                                <form method="POST" action="{{ route('materials.like', $material->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-hand-thumbs-up"></i> Like
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ route('materials.save', $material->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-success">
+                                        <i class="bi bi-bookmark"></i> Save
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ route('materials.report', $material->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-flag"></i> Report
+                                    </button>
+                                </form>
+                            </div>
 
-                        <!-- File Preview -->
-                        @php
-                        $fileUrl = Storage::url($material->file_path);
-                        $extension = pathinfo($material->file_path, PATHINFO_EXTENSION);
-                        @endphp
+                            <!-- File Preview -->
+                            @php
+                            $fileUrl = Storage::url($material->file_path);
+                            $extension = strtolower(pathinfo($material->file_path, PATHINFO_EXTENSION));
+                            @endphp
 
-                        <div class="mt-3">
-                            @if(in_array($extension, ['jpg', 'jpeg', 'png']))
-                                <img src="{{ $fileUrl }}" alt="Preview" class="img-fluid rounded shadow-sm">
-                            @elseif($extension === 'pdf')
-                                <iframe src="{{ $fileUrl }}" class="w-100 rounded shadow-sm" style="height: 400px; border: none;"></iframe>
-                            @elseif($extension === 'mp3')
-                                <audio controls class="w-100">
-                                    <source src="{{ $fileUrl }}" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            @else
-                                <a href="{{ $fileUrl }}" target="_blank" class="btn btn-sm btn-outline-secondary">
-                                    <i class="bi bi-download"></i> Download File
-                                </a>
-                            @endif
+                            <div class="mt-3">
+                                @if(in_array($extension, ['jpg', 'jpeg', 'png']))
+                                    <img src="{{ $fileUrl }}" alt="Preview" class="img-fluid rounded shadow-sm">
+                                @elseif($extension === 'pdf')
+                                    <iframe src="{{ $fileUrl }}" class="w-100 rounded shadow-sm" style="height: 400px; border: none;"></iframe>
+                                @elseif($extension === 'mp3')
+                                    <audio controls class="w-100">
+                                        <source src="{{ $fileUrl }}" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                @else
+                                    <a href="{{ $fileUrl }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                        <i class="bi bi-download"></i> Download File
+                                    </a>
+                                @endif
+
+                                {{-- Optional recorded audio explanation --}}
+                                @if($material->audio_path)
+                                    <audio controls class="mt-3 w-100">
+                                        <source src="{{ Storage::url($material->audio_path) }}" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                @endif
+                            </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
-
                 <!-- Pagination -->
                 <div class="mt-4 mb-5 d-flex justify-content-center">
                     {{ $materials->onEachSide(1)->links('vendor.pagination.bootstrap-5') }}
