@@ -3,12 +3,6 @@
 
 @section('content')
 
-<!-- Preloader (only shows on first visit) -->
-<div id="preloader">
-    <div class="spinner"></div>
-    <h4 class="mt-3 text-primary fw-bold preloader-text">StudyNest</h4>
-</div>
-
 <!-- Include AOS CSS -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
@@ -190,49 +184,6 @@
 </section>
 
 <style>
-    /* ===== Preloader ===== */
-    #preloader {
-        position: fixed;
-        inset: 0;
-        background: #ffffff;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-    #preloader.hidden {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    .spinner {
-        width: 60px;
-        height: 60px;
-        border: 6px solid #e5e7eb;
-        border-top: 6px solid #1E3A8A;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-
-    .preloader-text {
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeUp 1s forwards 0.5s;
-    }
-
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-    @keyframes fadeUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
     /* Hover Animations */
     .hover-grow {
         transition: transform 0.3s ease;
@@ -259,49 +210,40 @@
     .fade-item:nth-child(3) { animation-delay: 0.6s; }
     .fade-item:nth-child(4) { animation-delay: 0.8s; }
 
-
     /* About Us Tabs */
-.about-us .nav-link {
-    cursor: pointer;
-    color: #374151; /* neutral gray */
-    transition: all 0.3s ease;
-    padding: 8px 16px;
-    border-radius: 8px;
-}
+    .about-us .nav-link {
+        cursor: pointer;
+        color: #374151; /* neutral gray */
+        transition: all 0.3s ease;
+        padding: 8px 16px;
+        border-radius: 8px;
+    }
 
-.about-us .nav-link:hover {
-    color: #1E3A8A; /* brand blue */
-    background-color: #f0f4ff;
-    transform: translateY(-2px);
-}
+    .about-us .nav-link:hover {
+        color: #1E3A8A; /* brand blue */
+        background-color: #f0f4ff;
+        transform: translateY(-2px);
+    }
 
-.about-us .nav-link.active-link {
-    color: #ffffff;
-    background-color: #1E3A8A;
-    font-weight: bold;
-    box-shadow: 0 3px 10px rgba(30, 58, 138, 0.3);
-}
+    .about-us .nav-link.active-link {
+        color: #ffffff;
+        background-color: #1E3A8A;
+        font-weight: bold;
+        box-shadow: 0 3px 10px rgba(30, 58, 138, 0.3);
+    }
 
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
 
-<!-- AOS & Preloader JS -->
+<!-- AOS & Custom JS -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const preloader = document.getElementById("preloader");
-
-        // Check if user has visited before
-        if (localStorage.getItem("studynest_visited")) {
-            preloader.classList.add("hidden");
-        } else {
-            window.addEventListener("load", () => {
-                setTimeout(() => {
-                    preloader.classList.add("hidden");
-                    localStorage.setItem("studynest_visited", "true");
-                }, 1200);
-            });
-        }
-
         // Init AOS
         AOS.init();
 
@@ -321,3 +263,4 @@
 </script>
 
 @endsection
+
