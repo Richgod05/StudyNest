@@ -14,16 +14,24 @@
 
         <div class="row">
 
-            <!-- Search Bar -->
-            <div class="col-12 mb-4">
-                <form action="{{ route('materials.index') }}" method="GET" class="input-group shadow-sm">
-                    <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Search by title, tags, uploader, or keywords...">
-                    <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
-                    @if(request('search'))
-                        <a href="{{ route('materials.index') }}" class="btn btn-outline-secondary"><i class="bi bi-x-circle"></i></a>
-                    @endif
+        <!-- Styled Search Bar (like NestChat) -->
+            <div class="mb-4 d-flex justify-content-center fade-in-up">
+                <form method="GET" action="{{ route('materials.index') }}" class="d-flex search-form">
+                    <div class="input-group shadow-sm">
+                        <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                        <input type="text" name="search" class="form-control"
+                            placeholder="Search by title, tags, uploader, or keywords..."
+                            value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-arrow-right-circle"></i> Search
+                        </button>
+                        @if(request('search'))
+                            <a href="{{ route('materials.index') }}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle"></i>
+                            </a>
+                        @endif
+                    </div>
                 </form>
-
             </div>
 
 
@@ -154,8 +162,8 @@
                 </div>
                 <!-- Pagination -->
                 <div class="mt-4 mb-5 d-flex justify-content-center">
-                    {{ $materials->onEachSide(1)->links('vendor.pagination.bootstrap-5') }}
                     {{ $materials->appends(['search' => request('search')])->onEachSide(1)->links('vendor.pagination.bootstrap-5') }}
+
 
                 </div>
             </div>
@@ -175,6 +183,18 @@
     .hover-lift:hover { transform: translateY(-5px); transition: 0.3s ease; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
 
     .badge { font-size: 0.85rem; padding: 0.4em 0.6em; border-radius: 0.25rem; }
+
+    /* NestDrop search styling to match NestChat */
+.search-form {
+    width: 60%;
+    max-width: 600px;
+}
+@media (max-width: 768px) {
+    .search-form {
+        width: 100%;
+    }
+}
+
 </style>
 
 <!-- Audio Recording Script -->
