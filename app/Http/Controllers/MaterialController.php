@@ -81,4 +81,27 @@ class MaterialController extends Controller
         ]);
         return back()->with('message', 'Material reported. Thank you!');
     }
+
+    public function index2(Request $request)
+{
+    $query = Material::with('user');
+
+    if ($request->has('search') && $request->search !== null) {
+        $search = $request->search;
+
+        $query->where(function ($q) use ($search) {
+            $q->where('title', 'like', "%{$search}%")
+              ->orWhere('description', 'like', "%{$search}%")
+              ->orWhere('tags', 'like', "%{$search}%")
+              ->orWhereHas('user', function ($userQuery) use ($search) {
+                  $userQuery->where('name', 'like', "%{$search}%");
+              });
+        });
+    }
+
+    $materials = $query->latest()->paginate(10);
+
+    return view('materials.index', compact('materials'));
+}
+
 }

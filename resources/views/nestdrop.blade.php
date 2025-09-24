@@ -13,6 +13,20 @@
         </div>
 
         <div class="row">
+
+            <!-- Search Bar -->
+            <div class="col-12 mb-4">
+                <form action="{{ route('materials.index') }}" method="GET" class="input-group shadow-sm">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Search by title, tags, uploader, or keywords...">
+                    <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+                    @if(request('search'))
+                        <a href="{{ route('materials.index') }}" class="btn btn-outline-secondary"><i class="bi bi-x-circle"></i></a>
+                    @endif
+                </form>
+
+            </div>
+
+
             <!-- Share Material Form -->
             <div class="col-lg-4 mb-4">
                 <div class="card shadow-sm border-0 fade-in-up hover-scale">
@@ -141,6 +155,8 @@
                 <!-- Pagination -->
                 <div class="mt-4 mb-5 d-flex justify-content-center">
                     {{ $materials->onEachSide(1)->links('vendor.pagination.bootstrap-5') }}
+                    {{ $materials->appends(['search' => request('search')])->onEachSide(1)->links('vendor.pagination.bootstrap-5') }}
+
                 </div>
             </div>
         </div>
