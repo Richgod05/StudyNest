@@ -1,0 +1,28 @@
+<?php
+
+// app/Models/Book.php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Book extends Model
+{
+    protected $fillable = [
+        'name',
+        'title',
+        'author',
+        'description',
+        'tags',
+        'category_id',
+    ];
+
+    protected $casts = [
+        'tags' => 'array',
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+}
