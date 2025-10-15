@@ -8,49 +8,60 @@ use App\Models\Category;
 
 class AdminController extends Controller
 {
-            public function index(Request $request) {
-                $search = $request->input('search');
-                $books = Book::with('category')
-                    ->when($search, function ($query, $search) {
-                        $query->where('name', 'like', "%$search%")
-                            ->orWhere('author', 'like', "%$search%")
-                            ->orWhereJsonContains('tags', $search);
-                    })
-                    ->latest()->get();
+    // 📚 Book Upload Page
+    public function showBookUpload(Request $request)
+    {
+        $search = $request->input('search');
 
-                $categories = Category::with('books')->get();
-                return view('admin.index', compact('books', 'categories', 'search'));
-            }
+        $books = Book::with('category')
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%$search%")
+                      ->orWhere('author', 'like', "%$search%")
+                      ->orWhereJsonContains('tags', $search);
+            })
+            ->latest()->get();
 
-            public function storeCategory(Request $request) {
-                $request->validate(['name' => 'required']);
-                Category::create($request->only('name'));
-                return back()->with('success', 'Category added');
-            }
+        $categories = Category::all();
 
-            public function storeBook(Request $request) {
-                $request->validate([
-                    'name' => 'required',
-                    'title' => 'nullable|string',
-                    'author' => 'nullable|string',
-                    'description' => 'required|string',
-                    'tags' => 'nullable|string',
-                    'file' => 'required|mimes:pdf,doc,docx',
-                    'category_id' => 'required'
-                ]);
+        return view('admin.uploadbook', compact('books', 'categories', 'search'));
+    }
 
-                $path = $request->file('file')->store('books', 'public'); // ✅ stored in public/books
+    // 🗂️ Category Upload Page
+    public function showCategoryUpload()
+    {
+        $categories = Category::withCount('books')->latest()->get();
+        return view('admin.addcategory', compact('categories'));
+    }
 
-                Book::create([
-                    'name' => $request->name,
-                    'title' => $request->title,
-                    'author' => $request->author,
-                    'description' => $request->description,
-                    'tags' => explode(',', $request->tags),
-                    'file_path' => $path,
-                    'category_id' => $request->category_id
-                ]);
+    // 🧾 Store Category
+    public function storeCategory(Request $request)
+    {
+        $request->validate(['name' => 'required|string|max:255']);
+        Category::create($request->only('name'));
+        return back()->with('success', 'Category added successfully');
+    }
 
-                return back()->with('success', 'Book uploaded successfully');
-            } 
+    // 📘 Store Book
+    public function storeBook(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
+            'author' => 'nullable|string|max:255',
+            'description' => 'required|string',
+            'tags' => 'nullable|string',
+            'category_id' => 'required|exists:categories,id'
+        ]);
+
+        Book::create([
+            'name' => $request->name,
+            'title' => $request->title,
+            'author' => $request->author,
+            'description' => $request->description,
+            'tags' => explode(',', $request->tags),
+            'category_id' => $request->category_id
+        ]);
+
+        return back()->with('success', 'Book uploaded successfully');
+    }
 }
