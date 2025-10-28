@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,3 +29,16 @@ Route::get('/materials', [MaterialController::class, 'index2'])->name('materials
     Route::post('/nestdrop/{material}/like', [MaterialController::class, 'like'])->name('materials.like');
     Route::post('/nestdrop/{material}/save', [MaterialController::class, 'save'])->name('materials.save');
     Route::post('/nestdrop/{material}/report', [MaterialController::class, 'report'])->name('materials.report');
+
+
+
+// Book upload
+Route::get('/admin/upload-book', [AdminController::class, 'showBookUpload'])->name('admin.uploadBook');
+Route::post('/admin/store-book', [AdminController::class, 'storeBook'])->name('admin.storeBook');
+
+// Category upload
+Route::get('/admin/add-category', [AdminController::class, 'showCategoryUpload'])->name('admin.addCategory');
+Route::post('/admin/store-category', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
+
+
+Route::get('/books/{book}', [AdminController::class, 'show'])->name('show');

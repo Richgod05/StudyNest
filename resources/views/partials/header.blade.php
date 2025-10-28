@@ -24,7 +24,7 @@
                     <a class="nav-link text-white nav-animate" href="{{ url('/') }}">StudyNest</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white nav-animate" href="#">Learning Hub</a>
+                    <a class="nav-link text-white nav-animate" href="{{ 'show' }}">Learning Hub</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white nav-animate" href="{{ route('nestchat.index') }}">Nest Chat</a>

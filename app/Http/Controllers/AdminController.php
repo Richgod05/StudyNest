@@ -64,4 +64,14 @@ class AdminController extends Controller
 
         return back()->with('success', 'Book uploaded successfully');
     }
+
+
+    public function show(Book $book, Request $request)
+    {
+        $query = $request->input('q');
+        $categories = Category::with('books')->get(); // ✅ for sidebar
+
+        return view('show', compact('book', 'categories', 'query'));
+    }
+
 }
