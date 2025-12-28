@@ -34,9 +34,7 @@ Route::get('/materials', [MaterialController::class, 'index2'])->name('materials
 
 //FOR ADMIN PAGE
 // Admin Home (Dashboard)
-Route::get('/admin', function () {
-    return view('admin.home'); // Blade file for Admin Dashboard
-})->name('admin.home');
+Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.home');
 
 // 📚 Book Upload
 Route::get('/admin/upload-book', [AdminController::class, 'showBookUpload'])->name('admin.uploadBook');

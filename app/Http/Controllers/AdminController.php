@@ -90,4 +90,10 @@ class AdminController extends Controller
 
         return view('learninghub', compact('books', 'categories'));
     }
+
+    public function dashboard()
+    {
+    $categories = Category::withCount('books')->get();
+    return view('admin.home', compact('categories'));
+    }
 }
