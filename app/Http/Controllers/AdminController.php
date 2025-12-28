@@ -65,7 +65,7 @@ class AdminController extends Controller
         return back()->with('success', 'Book uploaded successfully');
     }
 
-
+    // 📖 Show Single Book
     public function show(Book $book, Request $request)
     {
         $query = $request->input('q');
@@ -74,4 +74,20 @@ class AdminController extends Controller
         return view('show', compact('book', 'categories', 'query'));
     }
 
+    // 🌐 Learning Hub (All Books)
+    public function learningHub()
+    {
+        $books = Book::latest()->get();
+        $categories = Category::with('books')->get();
+
+        if ($books->isEmpty()) {
+            return view('learninghub', [
+                'books' => $books,
+                'categories' => $categories,
+                'message' => 'No book uploaded'
+            ]);
+        }
+
+        return view('learninghub', compact('books', 'categories'));
+    }
 }
