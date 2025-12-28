@@ -32,14 +32,22 @@ Route::get('/materials', [MaterialController::class, 'index2'])->name('materials
 
 
 
-// Book upload
+//FOR ADMIN PAGE
+// Admin Home (Dashboard)
+Route::get('/admin', function () {
+    return view('admin.home'); // Blade file for Admin Dashboard
+})->name('admin.home');
+
+// 📚 Book Upload
 Route::get('/admin/upload-book', [AdminController::class, 'showBookUpload'])->name('admin.uploadBook');
 Route::post('/admin/store-book', [AdminController::class, 'storeBook'])->name('admin.storeBook');
 
-// Category upload
+// 🗂️ Category Upload
 Route::get('/admin/add-category', [AdminController::class, 'showCategoryUpload'])->name('admin.addCategory');
 Route::post('/admin/store-category', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
 
+// 📖 Single Book Page
+Route::get('/books/{book}', [AdminController::class, 'show'])->name('show');
 
-// Learning Hub (all books)
+// 🌐 Learning Hub (All Books)
 Route::get('/learning-hub', [AdminController::class, 'learningHub'])->name('learning.hub');
