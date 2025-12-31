@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-    @include('partials.sidebar') <!-- Sidebar for consistency -->
+    
 
     <div class="container py-5">
         <!-- Page Header -->
