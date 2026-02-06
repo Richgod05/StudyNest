@@ -50,5 +50,63 @@
 
     <!-- Custom Scripts for Child Views -->
     @yield('scripts')
+
+    <style>
+    .sidebar {
+        position: fixed;
+        top: 70px; /* adjust if you have a navbar */
+        left: 0;
+        width: 250px;
+        height: calc(100vh - 70px);
+        background: #ffffff;
+        border-right: 1px solid #e5e7eb;
+        padding: 20px 15px;
+        overflow-y: auto;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        z-index: 1000;
+    }
+
+    .sidebar-title {
+        font-weight: 700;
+        color: #1E3A8A;
+        margin-bottom: 15px;
+    }
+
+    .sidebar-link {
+        display: block;
+        padding: 8px 10px;
+        border-radius: 6px;
+        color: #1f2933;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.2s ease;
+    }
+
+    .sidebar-link:hover {
+        background: #eff6ff;
+        color: #1E3A8A;
+    }
+
+    .book-link {
+        display: block;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        color: #4b5563;
+        text-decoration: none;
+        transition: background 0.2s ease;
+    }
+
+    .book-link:hover {
+        background: #f1f5f9;
+        color: #1E3A8A;
+    }
+
+    /* Push main content so it doesn’t go under sidebar */
+    .with-sidebar {
+        margin-left: 260px; /* slightly bigger than sidebar width */
+    }
+</style>
+
 </body>
 </html>

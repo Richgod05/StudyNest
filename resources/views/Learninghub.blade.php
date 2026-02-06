@@ -3,7 +3,7 @@
 @section('content')
     @include('partials.sidebar') <!-- Sidebar appears on every page -->
 
-    <div class="container mx-auto px-6 py-8 mb-5">
+    <div class="container mx-auto px-6 py-8 mb-5 with-sidebar">
         <!-- Page Header -->
         <div class="text-center mb-5 fade-in-down">
             <h2 class="fw-bold position-relative d-inline-block" style="color:#1E3A8A;">
