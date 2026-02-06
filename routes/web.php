@@ -44,8 +44,10 @@ Route::post('/admin/store-book', [AdminController::class, 'storeBook'])->name('a
 Route::get('/admin/add-category', [AdminController::class, 'showCategoryUpload'])->name('admin.addCategory');
 Route::post('/admin/store-category', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
 
-// 📖 Single Book Page
-Route::get('/books/{book}', [AdminController::class, 'show'])->name('show');
+
 
 // 🌐 Learning Hub (All Books)
 Route::get('/learning-hub', [AdminController::class, 'learningHub'])->name('learning.hub');
+
+
+Route::get('/books/{book}', [AdminController::class, 'show'])->name('books.show');
