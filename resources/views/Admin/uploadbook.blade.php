@@ -98,7 +98,8 @@
 </div>
 
 <!-- TinyMCE -->
-<script src="https://cdn.tiny.cloud/1/7e4o5qkpdx94uf6bxpr671tyqs3a64sewe4ufrn68mv9fmrf/tinymce/6/tinymce.min.js"></script>
+<script src="/public/tinymce/tinymce/js/tinymce/tinymce.min.js"></script>
+
 <script>
     tinymce.init({
         selector: '#bookDescription',
