@@ -43,27 +43,28 @@ class AdminController extends Controller
 
     // 📘 Store Book
     public function storeBook(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'title' => 'nullable|string|max:255',
-            'author' => 'nullable|string|max:255',
-            'description' => 'required|string',
-            'tags' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id'
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'title' => 'nullable|string|max:255',
+        'author' => 'nullable|string|max:255',
+        'description' => 'required|string',
+        'tags' => 'nullable|string',
+        'category_id' => 'required|exists:categories,id'
+    ]);
 
-        Book::create([
-            'name' => $request->name,
-            'title' => $request->title,
-            'author' => $request->author,
-            'description' => $request->description,
-            'tags' => explode(',', $request->tags),
-            'category_id' => $request->category_id
-        ]);
+    Book::create([
+        'name' => $request->name,
+        'title' => $request->title,
+        'author' => $request->author,
+        'description' => $request->description,
+        'tags' => $request->tags ? explode(',', $request->tags) : [],
+        'category_id' => $request->category_id
+    ]);
 
-        return back()->with('success', 'Book uploaded successfully');
-    }
+    return back()->with('success', 'Book uploaded successfully');
+}
+
 
     // 📖 Show Single Book
     public function show(Book $book, Request $request)

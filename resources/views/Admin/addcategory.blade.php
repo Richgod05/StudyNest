@@ -1,8 +1,7 @@
-@extends('layouts.layout')
+@extends('Admin/layoutsadmin.adminlayout')
 
 @section('content')
-    @include('partials.sidebar')
-
+    
     <div class="container py-5">
         <!-- Page Header -->
         <div class="text-center mb-5 fade-in-down">
