@@ -101,6 +101,35 @@
         transition: transform 0.3s ease;
     }
     .hover-lift:hover { transform: translateY(-5px); }
+
+    
+    /* Professional Tab Styling */
+    .about-us .nav-pills .nav-link {
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .about-us .nav-pills .nav-link.active-tab {
+        background-color: #1E3A8A;
+        color: white !important;
+        box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2);
+    }
+
+    .about-us .nav-pills .nav-link:not(.active-tab):hover {
+        background-color: #e9ecef;
+        color: #1E3A8A !important;
+    }
+
+    /* Content Fade Animation */
+    .tab-pane {
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
 </style>
 
 <section class="hero">
@@ -155,36 +184,72 @@
     </div>
 </section>
 
-<section class="about-us py-5 mb-5" style="background-color: #fcfdfe;">
-    <div class="container text-center">
-        <h2 class="section-title fw-bold" data-aos="zoom-in">About Us</h2>
+<section class="about-us py-5 mb-5" style="background-color: #ffffff; font-family: 'Quicksand', sans-serif;">
+    <div class="container">
+        <div class="row mb-5 text-center" data-aos="fade-up">
+            <div class="col-lg-8 mx-auto">
+                <h6 class="text-uppercase fw-bold text-primary mb-2" style="letter-spacing: 2px; font-size: 0.85rem;">Discover Our Story</h6>
+                <h2 class="display-5 fw-bold mb-4" style="color: #1E3A8A;">Bridging the Gap in Digital Education</h2>
+                <p class="text-muted lead">StudyNest isn't just a repository of files; it's a dynamic ecosystem designed to transform how students interact with knowledge and each other.</p>
+            </div>
+        </div>
 
-        <nav class="nav justify-content-center mt-4 mb-4" data-aos="fade-up">
-            <a class="nav-link fw-semibold active-link" data-tab="who-we-are">Who We Are</a>
-            <a class="nav-link fw-semibold" data-tab="our-mission">Our Mission</a>
-            <a class="nav-link fw-semibold" data-tab="our-vision">Our Vision</a>
-        </nav>
-
-        <div id="tab-content" class="py-3" data-aos="fade-up">
-            <div class="tab-pane" id="who-we-are">
-                <div class="col-lg-8 mx-auto">
-                    <ul class="list-unstyled fs-5">
-                        <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i> Student-First Learning Hub</li>
-                        <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i> Curated Resources & Guides</li>
-                        <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i> Supportive Peer Community</li>
-                    </ul>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="position-relative">
+                    <img src="{{ asset('images/studynest3.png') }}" alt="About StudyNest" class="img-fluid rounded-4 shadow-lg">
+                    <div class="position-absolute bottom-0 end-0 bg-primary text-white p-4 rounded-4 shadow-lg d-none d-md-block" style="transform: translate(20px, 20px);">
+                        <h3 class="fw-bold mb-0">100%</h3>
+                        <small class="text-uppercase">Student Focused</small>
+                    </div>
                 </div>
             </div>
 
-            <div class="tab-pane d-none" id="our-mission">
-                <div class="col-lg-8 mx-auto">
-                    <p class="fs-5 text-muted">Empowering students by providing a trusted platform where learning is collaborative and resources are accessible to everyone.</p>
-                </div>
-            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <nav class="nav nav-pills mb-4 p-1 bg-light rounded-pill shadow-sm" style="width: fit-content;">
+                    <a class="nav-link active-tab fw-bold px-4 py-2 rounded-pill" data-tab="who-we-are" style="cursor: pointer;">Who We Are</a>
+                    <a class="nav-link text-muted fw-bold px-4 py-2 rounded-pill" data-tab="our-mission" style="cursor: pointer;">Mission</a>
+                    <a class="nav-link text-muted fw-bold px-4 py-2 rounded-pill" data-tab="our-vision" style="cursor: pointer;">Vision</a>
+                </nav>
 
-            <div class="tab-pane d-none" id="our-vision">
-                <div class="col-lg-8 mx-auto">
-                    <p class="fs-5 text-muted">To be the global go-to hub for students, fostering growth, innovation, and lifelong learning through technology.</p>
+                <div id="tab-content">
+                    <div class="tab-pane" id="who-we-are">
+                        <h4 class="fw-bold mb-3" style="color: #1E3A8A;">A Modern Hub for Modern Learners</h4>
+                        <p class="text-muted mb-4" style="line-height: 1.8;">
+                            StudyNest was founded in Dodoma with a single vision: to make quality academic resources accessible to every student, regardless of their background. We combine technology with community-driven support to create an environment where curiosity thrives.
+                        </p>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-patch-check-fill text-primary fs-4 me-2"></i>
+                                    <span class="fw-semibold">Verified Resources</span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-people-fill text-primary fs-4 me-2"></i>
+                                    <span class="fw-semibold">Active Community</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane d-none" id="our-mission">
+                        <h4 class="fw-bold mb-3" style="color: #1E3A8A;">Our Mission</h4>
+                        <p class="text-muted mb-4" style="line-height: 1.8;">
+                            Our mission is to empower the next generation of professionals by providing a trusted, collaborative platform. We aim to eliminate the barriers to educational success by offering organized materials, peer-to-peer mentorship, and a 24/7 support network that encourages academic excellence.
+                        </p>
+                        <blockquote class="border-start border-4 border-primary ps-3 fst-italic text-primary">
+                            "Knowledge is power, but shared knowledge is empowerment."
+                        </blockquote>
+                    </div>
+
+                    <div class="tab-pane d-none" id="our-vision">
+                        <h4 class="fw-bold mb-3" style="color: #1E3A8A;">Our Vision</h4>
+                        <p class="text-muted mb-4" style="line-height: 1.8;">
+                            We envision a world where every learner has equal access to quality education and the confidence to achieve their career goals. StudyNest strives to be the global benchmark for student-led digital learning hubs, fostering innovation, diversity, and lifelong growth.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -235,6 +300,29 @@
             });
         });
     });
+
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabs = document.querySelectorAll('.about-us .nav-link');
+        const contents = document.querySelectorAll('.about-us .tab-pane');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active classes
+                tabs.forEach(t => t.classList.remove('active-tab', 'text-white'));
+                tabs.forEach(t => t.classList.add('text-muted'));
+                contents.forEach(c => c.classList.add('d-none'));
+
+                // Add active classes
+                tab.classList.add('active-tab');
+                tab.classList.remove('text-muted');
+                const target = tab.getAttribute('data-tab');
+                document.getElementById(target).classList.remove('d-none');
+            });
+        });
+    });
+
+
 </script>
 
 @endsection
