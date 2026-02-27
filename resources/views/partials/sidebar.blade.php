@@ -1,25 +1,29 @@
-<!-- resources/views/partials/sidebar.blade.php -->
-<div class="sidebar">
-    <h5 class="sidebar-title">
-        <i class="bi bi-list me-1"></i> Categories
-    </h5>
-
-    <ul class="list-unstyled">
+<div class="hub-nav">
+    <h6 class="text-uppercase fw-bold text-muted small mb-3 letter-spacing-1">
+        <i class="bi bi-grid-fill me-2"></i> Categories
+    </h6>
+    
+    <div class="nav flex-column">
         @foreach($categories as $category)
-            <li class="mb-2">
-                <a class="sidebar-link" data-bs-toggle="collapse" href="#cat{{ $category->id }}">
-                    <i class="bi bi-folder2-open me-1"></i> {{ $category->name }}
+            <div class="mb-1">
+                <a class="nav-link d-flex justify-content-between align-items-center rounded-3 p-2 text-dark fw-medium" 
+                   style="transition: 0.2s;"
+                   onmouseover="this.style.backgroundColor='#eff6ff'" 
+                   onmouseout="this.style.backgroundColor='transparent'"
+                   data-bs-toggle="collapse" 
+                   href="#sideCat{{ $category->id }}">
+                    <span><i class="bi bi-folder2 me-2 text-primary"></i> {{ $category->name }}</span>
+                    <i class="bi bi-chevron-down small opacity-50"></i>
                 </a>
-                <ul id="cat{{ $category->id }}" class="collapse list-unstyled ps-3 mt-1">
+                
+                <div id="sideCat{{ $category->id }}" class="collapse ps-3">
                     @foreach($category->books as $book)
-                        <li class="mb-1">
-                            <a class="book-link" href="{{ route('books.show', $book->id) }}">
-                                <i class="bi bi-book me-1"></i> {{ $book->name }}
-                            </a>
-                        </li>
+                        <a href="{{ route('books.show', $book->id) }}" class="nav-link py-1 text-muted small">
+                            <i class="bi bi-book me-2"></i> {{ $book->name }}
+                        </a>
                     @endforeach
-                </ul>
-            </li>
+                </div>
+            </div>
         @endforeach
-    </ul>
+    </div>
 </div>

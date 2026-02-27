@@ -3,151 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'StudyNest — From Curiosity to Confidence')</title>
+    <title>@yield('title', 'StudyNest')</title>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-    <meta name="theme-color" content="#1E3A8A">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
     <style>
-        /* Global Typography */
-        body {
-            font-family: 'Quicksand', 'Nunito', sans-serif;
-            background-color: #ffffff;
-            color: #374151;
-            overflow-x: hidden;
+        :root {
+            --header-height: 72px; 
+            --studynest-blue: #1E3A8A;
+        }
+
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background: #f8fafc; 
+            margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 700;
+        /* Standard wrapper to push content below fixed header */
+        .wrapper {
+            margin-top: var(--header-height);
+            flex: 1;
         }
 
-        /* Content Wrapper */
-        main {
-            flex: 1; /* Pushes footer to bottom */
+        /* SIDEBAR LOGIC */
+        .sidebar-column {
+            background: #fff;
+            border-right: 1px solid #eef2f6;
+            padding: 0;
+            z-index: 100;
         }
 
-        /* Refined Sidebar Styling */
-        .sidebar {
-            position: fixed;
-            top: 100px; /* Aligned with your 100px navbar height */
-            left: 0;
-            width: 260px;
-            height: calc(100vh - 100px);
-            background: #fdfdfd;
-            border-right: 1px solid #f1f5f9;
-            padding: 30px 20px;
+        .sticky-wrapper {
+            position: sticky;
+            top: var(--header-height);
+            height: calc(100vh - var(--header-height));
             overflow-y: auto;
-            z-index: 1000;
-            transition: all 0.3s ease;
+            padding: 25px 15px;
         }
 
-        .sidebar-title {
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .sidebar-link {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-radius: 12px;
-            color: #4b5563;
-            font-weight: 600;
-            text-decoration: none;
-            margin-bottom: 5px;
-            transition: all 0.2s ease;
-        }
-
-        .sidebar-link i {
-            margin-right: 12px;
-            font-size: 1.1rem;
-        }
-
-        .sidebar-link:hover {
-            background: #eff6ff;
-            color: #1E3A8A;
-            transform: translateX(5px);
-        }
-
-        .sidebar-link.active {
-            background: #1E3A8A;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
-        }
-
-        /* Main Content Alignment with Sidebar */
-        .content-with-sidebar {
-            margin-left: 260px;
-            padding: 40px;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 991.98px) {
-            .sidebar {
-                display: none; /* Hide sidebar on mobile or convert to offcanvas */
+        /* MOBILE SLIDE-OUT */
+        @media (max-width: 991px) {
+            .sidebar-column {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 280px;
+                height: 100vh;
+                z-index: 2000;
+                transition: 0.3s ease;
+                box-shadow: 10px 0 20px rgba(0,0,0,0.1);
             }
-            .content-with-sidebar {
-                margin-left: 0;
-                padding: 20px;
-            }
+            .sidebar-column.active { left: 0; }
+            .sticky-wrapper { height: 100vh; top: 0; }
         }
 
-        /* Custom Scrollbar for Sidebar */
-        .sidebar::-webkit-scrollbar {
-            width: 5px;
-        }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #e2e8f0;
-            border-radius: 10px;
+        .mobile-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2001;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
     </style>
-
-    @yield('styles')
 </head>
 <body>
 
     @include('partials.header')
 
-    <main>
-        {{-- 
-           If a page needs a sidebar, wrap its content in:
-           <div class="content-with-sidebar"> ... </div>
-           and include the sidebar partial.
-        --}}
-        @yield('content')
-    </main>
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row g-0"> {{-- g-0 removes unwanted gaps --}}
+                
+                @if(Request::is('learning-hub*'))
+                    {{-- SIDEBAR AREA --}}
+                    <aside class="col-lg-3 col-xl-2 sidebar-column" id="hubSidebar">
+                        <div class="sticky-wrapper">
+                            @include('partials.sidebar')
+                        </div>
+                    </aside>
+
+                    {{-- MAIN CONTENT AREA --}}
+                    <main class="col-lg-9 col-xl-10 p-4">
+                        @yield('content')
+                    </main>
+
+                    <button class="btn btn-primary d-lg-none mobile-toggle" onclick="toggleSidebar()">
+                        <i class="bi bi-list fs-3"></i>
+                    </button>
+
+                @else
+                    <main class="col-12 p-4">
+                        @yield('content')
+                    </main>
+                @endif
+
+            </div>
+        </div>
+    </div>
 
     @include('partials.footer')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 800,
-                once: true,
-                easing: 'ease-in-out'
-            });
+        function toggleSidebar() {
+            document.getElementById('hubSidebar').classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(e) {
+            const sidebar = document.getElementById('hubSidebar');
+            const btn = document.querySelector('.mobile-toggle');
+            if (window.innerWidth < 992 && sidebar && sidebar.classList.contains('active')) {
+                if (!sidebar.contains(e.target) && (!btn || !btn.contains(e.target))) {
+                    sidebar.classList.remove('active');
+                }
+            }
         });
     </script>
-    
-    @yield('scripts')
-
 </body>
 </html>
