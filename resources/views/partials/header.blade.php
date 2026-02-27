@@ -1,34 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1E3A8A; height: 100px;">
-    <div class="container" style="height: 100%;">
+<nav class="navbar navbar-expand-lg navbar-dark main-navbar-custom fixed-top">
+    <div class="container">
         
-        <!-- Brand / Logo -->
-        <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url('/') }}" style="height: 100%;">
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="{{ url('/') }}">
             <img src="{{ asset('images/studynest5.png') }}" 
                  alt="StudyNest Logo" 
-                 style="height: 100px; width: auto; transition: transform 0.3s ease;" 
-                 class="me-2 logo-hover">
+                 class="me-2 logo-hover main-logo">
         </a>
 
-        <!-- Mobile Toggle -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" 
                 data-bs-target="#mainNavbar"
                 aria-controls="mainNavbar" aria-expanded="false" 
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Nav Links -->
-        <div class="collapse navbar-collapse justify-content-center mobile-menu" id="mainNavbar">
-            <ul class="navbar-nav gap-3">
+        <div class="collapse navbar-collapse justify-content-center" id="mainNavbar">
+            <ul class="navbar-nav gap-lg-3 py-3 py-lg-0">
                 <li class="nav-item">
                     <a class="nav-link text-white nav-animate" href="{{ url('/') }}">StudyNest</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white nav-animate" href="{{ route('learning.hub') }}">
-                        Learning Hub
-                    </a>
+                    <a class="nav-link text-white nav-animate" href="{{ route('learning.hub') }}">Learning Hub</a>
                 </li>
-                
                 <li class="nav-item">
                     <a class="nav-link text-white nav-animate" href="{{ route('nestchat.index') }}">Q&A Forum</a>
                 </li>
@@ -42,17 +35,37 @@
         </div>
     </div>
 </nav>
-
 <style>
-    /* Logo hover scale */
-    .logo-hover:hover {
-        transform: scale(1.05);
+   
+    /* Desktop Navbar Height */
+    .main-navbar-custom {
+        background-color: #1E3A8A;
+        min-height: 72px; /* Standard professional height */
+        z-index: 2005; /* Ensures it stays above the sidebar and content */
+        transition: all 0.3s ease;
+    }
+
+    /* Logo Scaling */
+    .main-logo {
+        height: 60px; /* Reduced slightly for better mobile fit */
+        width: auto;
+        transition: transform 0.3s ease;
+    }
+
+    @media (min-width: 992px) {
+        .main-navbar-custom {
+            height: 100px; /* Restores your original height for desktop only */
+        }
+        .main-logo {
+            height: 100px;
+        }
     }
 
     /* Nav link hover underline animation */
     .nav-animate {
         position: relative;
         transition: color 0.3s ease;
+        display: inline-block;
     }
     .nav-animate::after {
         content: "";
@@ -61,7 +74,7 @@
         height: 2px;
         left: 0;
         bottom: 0;
-        background-color: #FFD700; /* Gold underline */
+        background-color: #FFD700;
         transition: width 0.3s ease;
     }
     .nav-animate:hover {
@@ -71,18 +84,18 @@
         width: 100%;
     }
 
-    /* Mobile menu background */
+    /* Mobile Menu Logic */
     @media (max-width: 991.98px) {
-        .mobile-menu {
+        .navbar-collapse {
             background-color: #1E3A8A;
-            padding: 1rem;
-            animation: fadeDown 0.4s ease;
+            margin-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 1rem 0;
         }
-    }
-
-    /* Fade-down animation for mobile menu */
-    @keyframes fadeDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        
+        /* Stop content overlap: This ensures the menu pushes content down */
+        .navbar-nav {
+            width: 100%;
+        }
     }
 </style>

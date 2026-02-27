@@ -24,12 +24,16 @@
             min-height: 100vh;
         }
 
-        /* Standard wrapper to push content below fixed header */
+        
         .wrapper {
-            margin-top: var(--header-height);
-            flex: 1;
+            margin-top: 72px; /* Match the min-height of your mobile navbar */
         }
-
+        @media (min-width: 992px) {
+            .wrapper {
+                margin-top: 100px; /* Match your desktop navbar height */
+            }
+        }
+        
         /* SIDEBAR LOGIC */
         .sidebar-column {
             background: #fff;
