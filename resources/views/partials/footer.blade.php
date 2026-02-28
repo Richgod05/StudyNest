@@ -46,7 +46,7 @@
                     </li>
                     <li class="d-flex mb-3 align-items-center">
                         <i class="bi bi-telephone-fill text-warning me-2"></i>
-                        <span>+255 057 994 19</span>
+                        <span>+255 757 994 519</span>
                     </li>
                     <li class="d-flex mb-3 align-items-center">
                         <i class="bi bi-envelope-fill text-warning me-2"></i>
