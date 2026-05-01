@@ -4,266 +4,563 @@
 @section('title', 'StudyNest — Empowering Your Learning Journey')
 
 @section('styles')
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
 <style>
-    /* ====== Hero Section ====== */
-    .hero {
-        background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-        padding: 100px 0;
-    }
+:root {
+    --primary: #1E3A8A;
+    --primary-dark: #152a63;
+}
 
-    .btn-primary {
-        background-color: #1E3A8A;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 50px;
-        transition: all 0.3s ease;
-    }
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #fdfbfb, #ebedee);
+    padding: 80px 0;
+}
 
-    .btn-primary:hover {
-        background-color: #152a63;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
-    }
+/* Buttons */
+.btn-primary {
+    background: var(--primary);
+    border: none;
+    border-radius: 50px;
+}
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
 
-    /* ====== What We Offer (Cards) ====== */
-    .offer-card {
-        background: #fff;
-        border: none;
-        border-radius: 15px;
-        padding: 40px 30px;
-        transition: all 0.4s ease;
-        height: 100%;
-        text-align: center;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    }
+/* Cards */
+.offer-card {
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    transition: 0.3s;
+}
+.offer-card:hover {
+    transform: translateY(-8px);
+}
 
-    .offer-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        border-bottom: 4px solid #1E3A8A;
-    }
+/* Section title */
+.section-title {
+    color: var(--primary);
+    margin-bottom: 40px;
+}
 
-    .offer-icon {
-        font-size: 3rem;
-        color: #1E3A8A;
-        margin-bottom: 20px;
-        display: inline-block;
-    }
+/* Floating image */
+.floating {
+    animation: float 5s ease-in-out infinite;
+}
+@keyframes float {
+    50% { transform: translateY(-10px); }
+}
 
-    /* ====== Section Utilities ====== */
-    .section-title {
-        color: #1E3A8A;
-        margin-bottom: 50px;
-        position: relative;
-    }
+/* Typing effect */
+.typing-text {
+    border-right: 2px solid var(--primary);
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: typing 2s steps(30), blink .7s infinite;
+}
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+@keyframes blink {
+    50% { border-color: transparent }
+}
 
-    .section-title::after {
-        content: '';
-        width: 60px;
-        height: 4px;
-        background: #1E3A8A;
-        position: absolute;
-        bottom: -15px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 2px;
-    }
+.hero-card {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    animation: float 4s ease-in-out infinite;
+    font-size: 0.9rem;
+}
 
-    .hover-lift {
-        transition: transform 0.3s ease;
-    }
-    .hover-lift:hover { transform: translateY(-5px); }
+.badge {
+    font-size: 0.85rem;
+}
 
-    /* About Us Tab Active States */
-    .about-us .nav-pills .nav-link.active-tab {
-        background-color: #1E3A8A;
-        color: white !important;
-        box-shadow: 0 4px 10px rgba(30, 58, 138, 0.2);
-    }
+.offer-card {
+    transition: all 0.3s ease;
+}
 
-    .tab-pane {
-        animation: fadeIn 0.5s ease;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+.offer-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.offer-card i {
+    display: inline-block;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(30,58,138,0.08);
+}
+
 </style>
 @endsection
 
+
 @section('content')
 
+<!-- HERO -->
+<!-- HERO -->
 <section class="hero">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6 text-center text-md-start" data-aos="fade-right">
-                <h1 class="display-4 fw-bold">Empower Your Learning with <span style="color:#1E3A8A;">StudyNest</span></h1>
-                <p class="lead mt-3 text-muted">
-                    Connecting curiosity with confidence. Dive into resources, join vibrant discussions, and grow with a community that cares.
+<div class="container">
+<div class="row align-items-center">
+
+<div class="col-md-6" data-aos="fade-right">
+
+    <!-- Badge -->
+    <span class="badge bg-primary-subtle text-primary mb-3 px-3 py-2">
+        <i class="bi bi-mortarboard-fill me-1"></i>
+        Built for Students
+    </span>
+
+    <!-- Heading -->
+    <h1 class="fw-bold mb-3">
+        <span class="typing-text">
+            Empower Your Learning with <span class="text-primary">StudyNest</span>
+        </span>
+    </h1>
+
+    <!-- Description -->
+    <p class="text-muted">
+        Unlock your full academic potential with StudyNest. 
+        Access high-quality study materials, connect with a supportive student community, 
+        and learn smarter with tools designed to help you succeed every day.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="mt-4">
+        <a href="{{ url('/learning-hub') }}" class="btn btn-primary me-2 px-4">
+            <i class="bi bi-rocket-takeoff me-1"></i>
+            Get Started
+        </a>
+        <a href="#what-we-offer" class="btn btn-outline-primary px-4">
+            <i class="bi bi-info-circle me-1"></i>
+            Learn More
+        </a>
+    </div>
+
+    <!-- Trust Indicators -->
+    <div class="mt-4 small text-muted">
+        <i class="bi bi-check-circle-fill text-success me-1"></i> Easy to use
+        &nbsp;•&nbsp;
+        <i class="bi bi-people-fill text-success me-1"></i> Student-focused
+        &nbsp;•&nbsp;
+        <i class="bi bi-journal-text text-success me-1"></i> Free resources
+    </div>
+
+</div>
+
+<div class="col-md-6 text-center mt-5 mt-md-0 position-relative" data-aos="fade-left">
+
+    <!-- Main Image -->
+    <img src="{{ asset('images/studynest3.png') }}" 
+         class="img-fluid floating" 
+         style="max-height: 420px;">
+
+    <!-- Floating Info Card -->
+    <div class="hero-card shadow bg-white p-3 rounded d-none d-md-block">
+        <small class="text-muted">
+            <i class="bi bi-graph-up-arrow me-1"></i>
+            Active Students
+        </small>
+        <h6 class="mb-0 text-primary fw-bold">
+            10K+ Learning Daily
+        </h6>
+    </div>
+
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- WHAT WE OFFER -->
+<section id="what-we-offer" class="py-5 bg-light">
+<div class="container text-center">
+
+    <!-- Header -->
+    <div class="mb-5" data-aos="fade-up">
+        <h2 class="section-title fw-bold">What We Offer</h2>
+        <p class="text-muted">
+            A complete learning ecosystem built to help students study smarter, collaborate better, and achieve more.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Learning Hub -->
+        <div class="col-md-4" data-aos="fade-up">
+            <div class="offer-card h-100 bg-white shadow-sm border-0 rounded-4 p-4">
+
+                <div class="mb-3">
+                    <i class="bi bi-journal-richtext fs-1 text-primary"></i>
+                </div>
+
+                <h5 class="fw-bold">Learning Hub</h5>
+
+                <p class="text-muted small mt-2">
+                    Access structured study materials, past papers, revision notes, and guides designed to help you perform better in exams.
                 </p>
-                <div class="mt-4">
-                    <a href="{{ url('/learning-hub') }}" class="btn btn-primary btn-lg shadow-sm me-3">Explore Hub</a>
-                    <a href="#what-we-offer" class="btn btn-outline-primary btn-lg rounded-pill px-4">Learn More</a>
-                </div>
-            </div>
-            <div class="col-md-6 text-center mt-5 mt-md-0" data-aos="fade-left">
-                <img src="{{ asset('images/studynest3.png') }}" alt="StudyNest Experience" class="img-fluid" style="max-height: 450px;">
+
             </div>
         </div>
+
+        <!-- Nest Chat -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="offer-card h-100 bg-white shadow-sm border-0 rounded-4 p-4">
+
+                <div class="mb-3">
+                    <i class="bi bi-chat-dots fs-1 text-primary"></i>
+                </div>
+
+                <h5 class="fw-bold">Nest Chat</h5>
+
+                <p class="text-muted small mt-2">
+                    Join real-time discussions, ask questions, and collaborate with other students in a supportive learning environment.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- Expert Mentorship -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="offer-card h-100 bg-white shadow-sm border-0 rounded-4 p-4">
+
+                <div class="mb-3">
+                    <i class="bi bi-person-video3 fs-1 text-primary"></i>
+                </div>
+
+                <h5 class="fw-bold">Expert Mentorship</h5>
+
+                <p class="text-muted small mt-2">
+                    Get guidance from top students and educators who help you improve study strategies and reach your academic goals.
+                </p>
+
+            </div>
+        </div>
+
     </div>
+
+</div>
 </section>
 
-<section id="what-we-offer" class="py-5">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="section-title fw-bold">What We Offer</h2>
-            <p class="text-muted">A comprehensive ecosystem designed for student success.</p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="offer-card">
-                    <div class="offer-icon"><i class="bi bi-book-half"></i></div>
-                    <h4>Learning Hub</h4>
-                    <p class="text-muted">Access a curated library of study guides, past papers, and structured notes to excel in your exams.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="offer-card">
-                    <div class="offer-icon"><i class="bi bi-chat-heart"></i></div>
-                    <h4>Nest Chat</h4>
-                    <p class="text-muted">Connect with peers in real-time. Share ideas, ask questions, and collaborate on difficult topics together.</p>
-                </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                <div class="offer-card">
-                    <div class="offer-icon"><i class="bi bi-person-badge"></i></div>
-                    <h4>Expert Mentorship</h4>
-                    <p class="text-muted">Get guidance from top-performing students and educators who provide insights on how to study effectively.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
+<!-- ABOUT -->
 <section class="about-us py-5 mb-5">
-    <div class="container">
-        <div class="row mb-5 text-center" data-aos="fade-up">
-            <div class="col-lg-8 mx-auto">
-                <h6 class="text-uppercase fw-bold text-primary mb-2" style="letter-spacing: 2px; font-size: 0.85rem;">Discover Our Story</h6>
-                <h2 class="display-5 fw-bold mb-4" style="color: #1E3A8A;">Bridging the Gap in Digital Education</h2>
-                <p class="text-muted lead">StudyNest is a dynamic ecosystem designed to transform how students interact with knowledge and each other.</p>
+<div class="container">
+
+    <!-- Section Header -->
+    <div class="row mb-5 text-center" data-aos="fade-up">
+        <div class="col-lg-8 mx-auto">
+            <h6 class="text-uppercase fw-bold text-primary mb-2"
+                style="letter-spacing: 2px; font-size: 0.85rem;">
+                Discover Our Story
+            </h6>
+
+            <h2 class="display-5 fw-bold mb-4" style="color: #1E3A8A;">
+                Bridging the Gap in Digital Education
+            </h2>
+
+            <p class="text-muted lead">
+                StudyNest is a dynamic ecosystem designed to transform how students interact with knowledge and each other.
+            </p>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="row align-items-center g-5">
+
+        <!-- IMAGE -->
+        <div class="col-lg-6" data-aos="fade-right">
+            <div class="position-relative">
+
+                <img src="{{ asset('images/studynest3.png') }}"
+                     alt="About StudyNest"
+                     class="img-fluid rounded-4 shadow-lg">
+
+                <!-- Badge -->
+                <div class="position-absolute bottom-0 end-0 text-white p-4 rounded-4 shadow-lg d-none d-md-block"
+                     style="transform: translate(20px, 20px);
+                     background: linear-gradient(180deg, #1E3A8A, #152a63);">
+
+                    <div class="text-center">
+                        <span class="counter fw-bold fs-3" data-target="100">100</span>
+                        <sup style="font-size:0.8rem;">%</sup>
+                    </div>
+
+                    <small class="text-uppercase d-block mt-2" style="opacity:0.9">
+                        Student Focused
+                    </small>
+
+                </div>
+
             </div>
         </div>
 
-        <div class="row align-items-center g-5">
-            <div class="col-lg-6" data-aos="fade-right">
-                <div class="position-relative">
-                    <img src="{{ asset('images/studynest3.png') }}" alt="About StudyNest" class="img-fluid rounded-4 shadow-lg">
-                    <div class="position-absolute bottom-0 end-0 bg-primary text-white p-4 rounded-4 shadow-lg d-none d-md-block" style="transform: translate(20px, 20px);">
-                        <h3 class="fw-bold mb-0">100%</h3>
-                        <small class="text-uppercase">Student Focused</small>
+        <!-- TEXT -->
+        <div class="col-lg-6" data-aos="fade-left">
+
+            <!-- NAV TABS (BOOTSTRAP FIXED) -->
+            <ul class="nav nav-pills mb-4 p-1 bg-light rounded-pill shadow-sm"
+                role="tablist"
+                style="width: fit-content;">
+
+                <li class="nav-item">
+                    <button class="nav-link active fw-bold px-4 py-2 rounded-pill"
+                            data-bs-toggle="pill"
+                            data-bs-target="#who-we-are"
+                            type="button">
+                        Who We Are
+                    </button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="nav-link fw-bold px-4 py-2 rounded-pill"
+                            data-bs-toggle="pill"
+                            data-bs-target="#our-mission"
+                            type="button">
+                        Mission
+                    </button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="nav-link fw-bold px-4 py-2 rounded-pill"
+                            data-bs-toggle="pill"
+                            data-bs-target="#our-vision"
+                            type="button">
+                        Vision
+                    </button>
+                </li>
+
+            </ul>
+
+            <!-- TAB CONTENT -->
+            <div class="tab-content">
+
+                <!-- WHO WE ARE -->
+                <div class="tab-pane fade show active" id="who-we-are">
+                    <h4 class="fw-bold mb-3" style="color:#1E3A8A;">
+                        A Modern Hub for Modern Learners
+                    </h4>
+
+                    <p class="text-muted" style="line-height:1.8;">
+                        StudyNest was founded in Dodoma with a single vision:
+                        to make quality academic resources accessible to every student, regardless of their background or location.
+                        We are a passionate team of educators, developers, and students working together to build a platform that adapts to modern learning needs.
+                    </p>
+
+                    <div class="row g-3 mt-3">
+
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-patch-check-fill text-primary fs-4 me-2"></i>
+                                <span class="fw-semibold">Verified Resources</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-people-fill text-primary fs-4 me-2"></i>
+                                <span class="fw-semibold">Active Community</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+
+                <!-- MISSION -->
+<div class="tab-pane fade" id="our-mission">
+
+    <h4 class="fw-bold mb-3" style="color:#1E3A8A;">
+        Our Mission
+    </h4>
+
+    <p class="text-muted" style="line-height:1.8;">
+        Our mission is to empower students by providing accessible, reliable, and collaborative learning tools.
+        We aim to bridge the gap in education through digital innovation and community-driven learning.
+    </p>
+
+    <!-- Mission Highlights -->
+    <div class="mt-4">
+
+        <div class="d-flex align-items-start mb-3">
+            <i class="bi bi-journal-check text-primary fs-4 me-3"></i>
+            <div>
+                <h6 class="fw-bold mb-1">Accessible Learning Resources</h6>
+                <small class="text-muted">
+                    Providing structured notes, past papers, and study materials for every student.
+                </small>
             </div>
+        </div>
 
-            <div class="col-lg-6" data-aos="fade-left">
-                <nav class="nav nav-pills mb-4 p-1 bg-light rounded-pill shadow-sm" style="width: fit-content;">
-                    <a class="nav-link active-tab fw-bold px-4 py-2 rounded-pill" data-tab="who-we-are" style="cursor: pointer;">Who We Are</a>
-                    <a class="nav-link text-muted fw-bold px-4 py-2 rounded-pill" data-tab="our-mission" style="cursor: pointer;">Mission</a>
-                    <a class="nav-link text-muted fw-bold px-4 py-2 rounded-pill" data-tab="our-vision" style="cursor: pointer;">Vision</a>
-                </nav>
+        <div class="d-flex align-items-start mb-3">
+            <i class="bi bi-people-fill text-primary fs-4 me-3"></i>
+            <div>
+                <h6 class="fw-bold mb-1">Collaborative Learning</h6>
+                <small class="text-muted">
+                    Encouraging students to learn together through discussions and peer support.
+                </small>
+            </div>
+        </div>
 
-                <div id="tab-content">
-                    <div class="tab-pane" id="who-we-are">
-                        <h4 class="fw-bold mb-3" style="color: #1E3A8A;">A Modern Hub for Modern Learners</h4>
-                        <p class="text-muted mb-4" style="line-height: 1.8;">
-                            StudyNest was founded in Dodoma with a single vision: to make quality academic resources accessible to every student.
-                        </p>
-                        <div class="row g-3">
-                            <div class="col-sm-6">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-patch-check-fill text-primary fs-4 me-2"></i>
-                                    <span class="fw-semibold">Verified Resources</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-people-fill text-primary fs-4 me-2"></i>
-                                    <span class="fw-semibold">Active Community</span>
-                                </div>
-                            </div>
+        <div class="d-flex align-items-start">
+            <i class="bi bi-rocket-takeoff-fill text-primary fs-4 me-3"></i>
+            <div>
+                <h6 class="fw-bold mb-1">Digital Empowerment</h6>
+                <small class="text-muted">
+                    Using modern technology to improve learning speed, access, and quality.
+                </small>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+            <!-- VISION -->
+            <div class="tab-pane fade" id="our-vision">
+
+                <h4 class="fw-bold mb-3" style="color:#1E3A8A;">
+                    Our Vision
+                </h4>
+
+                <p class="text-muted" style="line-height:1.8;">
+                    We envision a world where every learner has equal access to quality education,
+                    where collaboration replaces isolation, and where knowledge is freely shared across borders.
+                </p>
+
+                <!-- Vision Highlights -->
+                <div class="mt-4">
+
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="bi bi-globe2 text-primary fs-4 me-3"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Global Learning Access</h6>
+                            <small class="text-muted">
+                                Breaking barriers so students everywhere can access high-quality education resources.
+                            </small>
                         </div>
                     </div>
 
-                    <div class="tab-pane d-none" id="our-mission">
-                        <h4 class="fw-bold mb-3" style="color: #1E3A8A;">Our Mission</h4>
-                        <p class="text-muted mb-4" style="line-height: 1.8;">
-                            Our mission is to empower the next generation of professionals by providing a trusted, collaborative platform.
-                        </p>
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="bi bi-people-fill text-primary fs-4 me-3"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Connected Student Community</h6>
+                            <small class="text-muted">
+                                Building a strong network where learners collaborate, share ideas, and grow together.
+                            </small>
+                        </div>
                     </div>
 
-                    <div class="tab-pane d-none" id="our-vision">
-                        <h4 class="fw-bold mb-3" style="color: #1E3A8A;">Our Vision</h4>
-                        <p class="text-muted mb-4" style="line-height: 1.8;">
-                            We envision a world where every learner has equal access to quality education.
-                        </p>
+                    <div class="d-flex align-items-start">
+                        <i class="bi bi-lightbulb-fill text-primary fs-4 me-3"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Innovation in Education</h6>
+                            <small class="text-muted">
+                                Using technology to transform traditional learning into a smarter, faster experience.
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            </div>
+
         </div>
+
     </div>
+
+</div>
 </section>
 
-<section class="testimonials py-5 mb-5 bg-light">
+
+<!-- TESTIMONIALS -->
+<section class="py-5 bg-light">
     <div class="container text-center">
-        <h2 class="section-title fw-bold" data-aos="zoom-in">Testimonials</h2>
-        <div class="row g-4 mt-2">
+
+        <h2 class="section-title fw-bold" data-aos="zoom-in">What Our Users Say</h2>
+
+        <div class="row g-4">
+
+            <!-- Testimonial 1 -->
             <div class="col-md-4" data-aos="fade-up">
-                <div class="p-4 border-0 rounded-4 shadow-sm h-100 hover-lift bg-white">
-                    <p class="fst-italic text-muted">"StudyNest has completely transformed my study habits. The community is so supportive."</p>
-                    <h6 class="mt-3 mb-0 fw-bold" style="color:#1E3A8A;">— Sarah L.</h6>
+                <div class="p-4 bg-white shadow-sm rounded hover-lift">
+                    <p class="text-muted fst-italic">
+                        "StudyNest changed how I study! The resources are fantastic, and the community is so helpful!"
+                    </p>
+                    <strong class="text-primary d-block mb-2">— Sarah</strong>
+                    <small class="text-muted">Student at XYZ University</small>
                 </div>
             </div>
+
+            <!-- Testimonial 2 -->
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="p-4 border-0 rounded-4 shadow-sm h-100 hover-lift bg-white">
-                    <p class="fst-italic text-muted">"From the Learning Hub to Nest Chat, every feature keeps students engaged."</p>
-                    <h6 class="mt-3 mb-0 fw-bold" style="color:#1E3A8A;">— James K.</h6>
+                <div class="p-4 bg-white shadow-sm rounded hover-lift">
+                    <p class="text-muted fst-italic">
+                        "Amazing platform for students. The Learning Hub and chat features make studying much more engaging."
+                    </p>
+                    <strong class="text-primary d-block mb-2">— James</strong>
+                    <small class="text-muted">Engineering Student</small>
                 </div>
             </div>
+
+            <!-- Testimonial 3 -->
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="p-4 border-0 rounded-4 shadow-sm h-100 hover-lift bg-white">
-                    <p class="fst-italic text-muted">"The design and resources make StudyNest my daily go-to for learning."</p>
-                    <h6 class="mt-3 mb-0 fw-bold" style="color:#1E3A8A;">— Amina R.</h6>
+                <div class="p-4 bg-white shadow-sm rounded hover-lift">
+                    <p class="text-muted fst-italic">
+                        "My daily learning companion. The design is sleek, and the resources are always up to date!"
+                    </p>
+                    <strong class="text-primary d-block mb-2">— Amina</strong>
+                    <small class="text-muted">Medical Student</small>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 
 @endsection
 
+
 @section('scripts')
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tabs = document.querySelectorAll('.about-us .nav-link');
-        const contents = document.querySelectorAll('.about-us .tab-pane');
+AOS.init({
+    duration: 800,
+    once: true
+});
 
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Update Classes
-                tabs.forEach(t => {
-                    t.classList.remove('active-tab', 'text-white');
-                    t.classList.add('text-muted');
-                });
-                contents.forEach(c => c.classList.add('d-none'));
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all the tabs and contents
+    const tabs = document.querySelectorAll('.about-us .nav-link');
+    const contents = document.querySelectorAll('.about-us .tab-pane');
 
-                tab.classList.add('active-tab');
-                tab.classList.remove('text-muted');
-                
-                const target = tab.getAttribute('data-tab');
-                document.getElementById(target).classList.remove('d-none');
-            });
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Remove 'active' class from all tabs and add it to the clicked one
+            tabs.forEach(t => t.classList.remove('active-tab', 'text-white'));
+            tab.classList.add('active-tab', 'text-white');
+            
+            // Hide all tab contents
+            contents.forEach(c => c.classList.add('d-none'));
+            contents.forEach(c => c.classList.remove('show'));
+
+            // Get the target tab content
+            const target = tab.getAttribute('data-tab');
+            const targetContent = document.getElementById(target);
+            
+            // Show the target content
+            if (targetContent) {
+                targetContent.classList.remove('d-none');
+                setTimeout(() => targetContent.classList.add('show'), 10);
+            }
         });
     });
+});
 </script>
 @endsection
