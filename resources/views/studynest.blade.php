@@ -1,7 +1,7 @@
 {{-- resources/views/home.blade.php --}}
 @extends('layouts.layout')
 
-@section('title', 'StudyNest — Empowering Your Learning Journey')
+@section('title', 'Home - StudyNest')
 
 @section('styles')
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">

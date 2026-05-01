@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+@section('title', 'Learning Hub - StudyNest')
 
 @section('content')
     <div class="container-fluid py-4 fade-in-down">

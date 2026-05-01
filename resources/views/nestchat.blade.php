@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+@section('title', 'Q&A Forum - StudyNest')
 
 @section('content')
 <section class="nest-chat py-5 mb-5" style="background-color: #f9fafb;">

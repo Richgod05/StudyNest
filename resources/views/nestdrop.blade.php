@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+@section('title', 'Nestdrop - StudyNest')
 
 @section('content')
 <section class="nest-drop py-5 mb-5" style="background-color: #f9fafb;">
