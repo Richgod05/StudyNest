@@ -482,7 +482,13 @@
 <section class="py-5 bg-light">
     <div class="container text-center">
 
-        <h2 class="section-title fw-bold" data-aos="zoom-in">What Our Users Say</h2>
+        <!-- Header -->
+    <div class="mb-5" data-aos="fade-up">
+        <h2 class="section-title fw-bold">What Our Users Say</h2>
+        <p class="text-muted">
+            Their experience with us.
+        </p>
+    </div>
 
         <div class="row g-4">
 
