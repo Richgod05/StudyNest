@@ -1,35 +1,28 @@
 @extends('Admin/layoutsadmin.adminlayout')
 
 @section('content')
-
-<div class="container py-5 mb-5">
-    <!-- Header -->
+<div class="container py-5">
     <div class="text-center mb-4">
         <h2 class="fw-bold text-primary">
             <i class="bi bi-book-half me-2"></i> Upload New Book
         </h2>
-        <p class="text-muted">Complete the details, then write the full description</p>
+        <p class="text-muted">Complete the book details, then write the description</p>
     </div>
 
-    <!-- Progress -->
-    <div class="d-flex justify-content-center mb-4">
-        <div class="step active-step me-3">1</div>
+    <div class="d-flex justify-content-center mb-4 align-items-center">
+        <div class="step active-step">1</div>
         <div class="step-line"></div>
         <div class="step">2</div>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow border-0 mb-4">
+            <div class="card shadow border-0">
                 <div class="card-body">
-
-                    <form method="POST" action="{{ route('admin.storeBook') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.storeBook') }}" enctype="multipart/form-data" id="bookForm">
                         @csrf
 
-                        <!-- STEP 1 -->
                         <div id="step1">
-                            <h5 class="fw-bold mb-3 text-secondary">Step 1: Book Details</h5>
-
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Book Name *</label>
                                 <input type="text" name="name" class="form-control" required>
@@ -70,49 +63,86 @@
                             </button>
                         </div>
 
-                        <!-- STEP 2 -->
                         <div id="step2" style="display:none;">
-                            <h5 class="fw-bold mb-3 text-secondary">Step 2: Book Description</h5>
-
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Description *</label>
-                                <textarea id="bookDescription" name="description" class="form-control" required></textarea>
+
+                                <div class="editor-toolbar mb-2">
+                                    <select class="form-select form-select-sm editor-control" onchange="formatBlock(this.value)">
+                                        <option value="p">Paragraph</option>
+                                        <option value="h2">Heading 2</option>
+                                        <option value="h3">Heading 3</option>
+                                    </select>
+
+                                    <select class="form-select form-select-sm editor-control" onchange="changeFontFamily(this.value)">
+                                        <option value="Arial, sans-serif">Arial</option>
+                                        <option value="Georgia, serif">Georgia</option>
+                                        <option value="'Times New Roman', serif">Times New Roman</option>
+                                        <option value="Verdana, sans-serif">Verdana</option>
+                                        <option value="'Courier New', monospace">Courier New</option>
+                                    </select>
+
+                                    <select class="form-select form-select-sm editor-control" onchange="changeFontSize(this.value)">
+                                        <option value="14px">14px</option>
+                                        <option value="16px" selected>16px</option>
+                                        <option value="18px">18px</option>
+                                        <option value="20px">20px</option>
+                                        <option value="24px">24px</option>
+                                    </select>
+
+                                    <select class="form-select form-select-sm editor-control" onchange="changeLineHeight(this.value)">
+                                        <option value="1.2">1.2</option>
+                                        <option value="1.5" selected>1.5</option>
+                                        <option value="1.8">1.8</option>
+                                        <option value="2">2.0</option>
+                                    </select>
+
+                                    <button type="button" class="btn btn-light btn-sm" onclick="editorCommand('bold')"><b>B</b></button>
+                                    <button type="button" class="btn btn-light btn-sm" onclick="editorCommand('italic')"><i>I</i></button>
+                                    <button type="button" class="btn btn-light btn-sm" onclick="editorCommand('underline')"><u>U</u></button>
+                                    <button type="button" class="btn btn-light btn-sm" onclick="editorCommand('insertUnorderedList')">• List</button>
+                                    <button type="button" class="btn btn-light btn-sm" onclick="editorCommand('insertOrderedList')">1. List</button>
+                                    <button type="button" class="btn btn-light btn-sm" onclick="editorCommand('justifyLeft')">Left</button>
+                                    <button type="button" class="btn btn-light btn-sm" onclick="editorCommand('justifyCenter')">Center</button>
+                                    <button type="button" class="btn btn-light btn-sm" onclick="editorCommand('justifyRight')">Right</button>
+                                    <button type="button" class="btn btn-light btn-sm" onclick="addParagraph()">+ Paragraph</button>
+                                </div>
+
+                                <div
+                                    id="bookEditor"
+                                    class="editor-box"
+                                    contenteditable="true"
+                                    spellcheck="true"
+                                ></div>
+
+                                <textarea name="description" id="description" hidden required></textarea>
                             </div>
 
                             <div class="d-flex gap-2">
                                 <button type="button" class="btn btn-outline-secondary w-50" onclick="goBackStep1()">
                                     ← Back
                                 </button>
-                                <button type="submit" class="btn btn-success w-50 fw-bold">
+                                <button type="submit" class="btn btn-success w-50 fw-bold" onclick="syncDescription()">
                                     Submit Book
                                 </button>
                             </div>
                         </div>
-
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- TinyMCE -->
-<script src="/public/tinymce/tinymce/js/tinymce/tinymce.min.js"></script>
-
 <script>
-    tinymce.init({
-        selector: '#bookDescription',
-        height: 300,
-        menubar: false,
-        plugins: 'lists link code',
-        toolbar: 'undo redo | bold italic underline | bullist numlist | alignleft aligncenter alignright | code'
-    });
+    const editor = document.getElementById('bookEditor');
+    const hiddenDescription = document.getElementById('description');
 
     function goToStep2() {
         document.getElementById('step1').style.display = 'none';
         document.getElementById('step2').style.display = 'block';
         document.querySelectorAll('.step')[1].classList.add('active-step');
+        editor.focus();
     }
 
     function goBackStep1() {
@@ -120,6 +150,50 @@
         document.getElementById('step1').style.display = 'block';
         document.querySelectorAll('.step')[1].classList.remove('active-step');
     }
+
+    function syncDescription() {
+        hiddenDescription.value = editor.innerHTML.trim();
+    }
+
+    function editorCommand(command) {
+        editor.focus();
+        document.execCommand(command, false, null);
+        syncDescription();
+    }
+
+    function formatBlock(tag) {
+        editor.focus();
+        document.execCommand('formatBlock', false, tag);
+        syncDescription();
+    }
+
+    function changeFontFamily(font) {
+        editor.focus();
+        document.execCommand('fontName', false, font);
+        syncDescription();
+    }
+
+    function changeFontSize(size) {
+        editor.style.fontSize = size;
+        syncDescription();
+    }
+
+    function changeLineHeight(height) {
+        editor.style.lineHeight = height;
+        syncDescription();
+    }
+
+    function addParagraph() {
+        editor.focus();
+        document.execCommand('insertHTML', false, '<p><br></p>');
+        syncDescription();
+    }
+
+    editor.addEventListener('input', syncDescription);
+
+    document.getElementById('bookForm').addEventListener('submit', function () {
+        syncDescription();
+    });
 </script>
 
 <style>
@@ -144,8 +218,37 @@
         width: 60px;
         height: 4px;
         background: #dee2e6;
-        margin-top: 18px;
+        margin: 0 10px;
+    }
+
+    .editor-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .editor-control {
+        width: auto;
+        min-width: 130px;
+    }
+
+    .editor-box {
+        min-height: 280px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 15px;
+        background: #fff;
+        outline: none;
+        line-height: 1.5;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        overflow-y: auto;
+    }
+
+    .editor-box:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.15);
     }
 </style>
-
 @endsection
