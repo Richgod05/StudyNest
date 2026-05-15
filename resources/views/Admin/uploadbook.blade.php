@@ -25,22 +25,22 @@
                         <div id="step1">
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Book Name *</label>
-                                <input type="text" name="name" class="form-control" required>
+                                <input type="text" name="name" id="name" class="form-control" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Optional Title</label>
-                                <input type="text" name="title" class="form-control">
+                                <input type="text" name="title" id="title" class="form-control">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Author</label>
-                                <input type="text" name="author" class="form-control">
+                                <input type="text" name="author" id="author" class="form-control">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Category *</label>
-                                <select name="category_id" class="form-select" required>
+                                <select name="category_id" id="category_id" class="form-select" required>
                                     <option value="" disabled selected>Select category</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -50,12 +50,12 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Tags</label>
-                                <input type="text" name="tags" class="form-control">
+                                <input type="text" name="tags" id="tags" class="form-control" placeholder="tag1, tag2, tag3">
                             </div>
 
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label class="form-label fw-semibold">Upload Book File *</label>
-                                <input type="file" name="file" class="form-control" required>
+                                <input type="file" name="file" id="file" class="form-control" required>
                             </div>
 
                             <button type="button" class="btn btn-primary w-100" onclick="goToStep2()">
@@ -108,21 +108,15 @@
                                     <button type="button" class="btn btn-light btn-sm" onclick="addParagraph()">+ Paragraph</button>
                                 </div>
 
-                                <div
-                                    id="bookEditor"
-                                    class="editor-box"
-                                    contenteditable="true"
-                                    spellcheck="true"
-                                ></div>
-
-                                <textarea name="description" id="description" hidden required></textarea>
+                                <div id="bookEditor" class="editor-box" contenteditable="true" spellcheck="true"></div>
+                                <textarea name="description" id="description" hidden></textarea>
                             </div>
 
                             <div class="d-flex gap-2">
                                 <button type="button" class="btn btn-outline-secondary w-50" onclick="goBackStep1()">
                                     ← Back
                                 </button>
-                                <button type="submit" class="btn btn-success w-50 fw-bold" onclick="syncDescription()">
+                                <button type="submit" class="btn btn-success w-50 fw-bold">
                                     Submit Book
                                 </button>
                             </div>
@@ -135,10 +129,30 @@
 </div>
 
 <script>
+    const form = document.getElementById('bookForm');
     const editor = document.getElementById('bookEditor');
     const hiddenDescription = document.getElementById('description');
 
+    function validateStep1() {
+        const fields = [
+            document.getElementById('name'),
+            document.getElementById('category_id'),
+            document.getElementById('file')
+        ];
+
+        for (const field of fields) {
+            if (!field.checkValidity()) {
+                field.reportValidity();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     function goToStep2() {
+        if (!validateStep1()) return;
+
         document.getElementById('step1').style.display = 'none';
         document.getElementById('step2').style.display = 'block';
         document.querySelectorAll('.step')[1].classList.add('active-step');
@@ -153,6 +167,19 @@
 
     function syncDescription() {
         hiddenDescription.value = editor.innerHTML.trim();
+    }
+
+    function validateDescription() {
+        syncDescription();
+
+        const plainText = editor.textContent.trim();
+        if (!plainText) {
+            alert('Please write a description before submitting.');
+            editor.focus();
+            return false;
+        }
+
+        return true;
     }
 
     function editorCommand(command) {
@@ -191,7 +218,26 @@
 
     editor.addEventListener('input', syncDescription);
 
-    document.getElementById('bookForm').addEventListener('submit', function () {
+    form.addEventListener('submit', function (e) {
+        if (document.getElementById('step2').style.display === 'none') {
+            e.preventDefault();
+            goToStep2();
+            return;
+        }
+
+        if (!validateStep1()) {
+            e.preventDefault();
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step2').style.display = 'none';
+            document.querySelectorAll('.step')[1].classList.remove('active-step');
+            return;
+        }
+
+        if (!validateDescription()) {
+            e.preventDefault();
+            return;
+        }
+
         syncDescription();
     });
 </script>
