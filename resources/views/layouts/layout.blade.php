@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'StudyNest')</title>
 
+    <!-- ✅ Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
+    <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --header-height: 72px; 
@@ -23,17 +32,17 @@
             min-height: 100vh;
         }
 
-        
         .wrapper {
-            margin-top: 72px; /* Match the min-height of your mobile navbar */
+            margin-top: 72px;
         }
+
         @media (min-width: 992px) {
             .wrapper {
-                margin-top: 100px; /* Match your desktop navbar height */
+                margin-top: 100px;
             }
         }
-        
-        /* SIDEBAR LOGIC */
+
+        /* SIDEBAR */
         .sidebar-column {
             background: #fff;
             border-right: 1px solid #eef2f6;
@@ -49,7 +58,7 @@
             padding: 25px 15px;
         }
 
-        /* MOBILE SLIDE-OUT */
+        /* MOBILE */
         @media (max-width: 991px) {
             .sidebar-column {
                 position: fixed;
@@ -61,8 +70,15 @@
                 transition: 0.3s ease;
                 box-shadow: 10px 0 20px rgba(0,0,0,0.1);
             }
-            .sidebar-column.active { left: 0; }
-            .sticky-wrapper { height: 100vh; top: 0; }
+
+            .sidebar-column.active {
+                left: 0;
+            }
+
+            .sticky-wrapper {
+                height: 100vh;
+                top: 0;
+            }
         }
 
         .mobile-toggle {
@@ -77,57 +93,67 @@
         }
     </style>
 </head>
+
 <body>
 
-    @include('partials.header')
+@include('partials.header')
 
-    <div class="wrapper">
-        <div class="container-fluid">
-            <div class="row g-0"> {{-- g-0 removes unwanted gaps --}}
-                
-                @if(Request::is('learning-hub*'))
-                    {{-- SIDEBAR AREA --}}
-                    <aside class="col-lg-3 col-xl-2 sidebar-column" id="hubSidebar">
-                        <div class="sticky-wrapper">
-                            @include('partials.sidebar')
-                        </div>
-                    </aside>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row g-0">
 
-                    {{-- MAIN CONTENT AREA --}}
-                    <main class="col-lg-9 col-xl-10 p-4">
-                        @yield('content')
-                    </main>
+            @if(Request::is('learning-hub*'))
 
-                    <button class="btn btn-primary d-lg-none mobile-toggle" onclick="toggleSidebar()">
-                        <i class="bi bi-list fs-3"></i>
-                    </button>
+                <!-- SIDEBAR -->
+                <aside class="col-lg-3 col-xl-2 sidebar-column" id="hubSidebar">
+                    <div class="sticky-wrapper">
+                        @include('partials.sidebar')
+                    </div>
+                </aside>
 
-                @else
-                    <main class="col-12 p-4">
-                        @yield('content')
-                    </main>
-                @endif
+                <!-- CONTENT -->
+                <main class="col-lg-9 col-xl-10 p-4">
+                    @yield('content')
+                </main>
 
-            </div>
+                <!-- MOBILE BUTTON -->
+                <button class="btn btn-primary d-lg-none mobile-toggle" onclick="toggleSidebar()">
+                    <i class="bi bi-list fs-3"></i>
+                </button>
+
+            @else
+
+                <main class="col-12 p-4">
+                    @yield('content')
+                </main>
+
+            @endif
+
         </div>
     </div>
+</div>
 
-    @include('partials.footer')
+@include('partials.footer')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">  
-        function toggleSidebar() {
-            document.getElementById('hubSidebar').classList.toggle('active');
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function toggleSidebar() {
+    document.getElementById('hubSidebar').classList.toggle('active');
+}
+
+document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('hubSidebar');
+    const btn = document.querySelector('.mobile-toggle');
+
+    if (window.innerWidth < 992 && sidebar && sidebar.classList.contains('active')) {
+        if (!sidebar.contains(e.target) && (!btn || !btn.contains(e.target))) {
+            sidebar.classList.remove('active');
         }
+    }
+});
+</script>
 
-        document.addEventListener('click', function(e) {
-            const sidebar = document.getElementById('hubSidebar');
-            const btn = document.querySelector('.mobile-toggle');
-            if (window.innerWidth < 992 && sidebar && sidebar.classList.contains('active')) {
-                if (!sidebar.contains(e.target) && (!btn || !btn.contains(e.target))) {
-                    sidebar.classList.remove('active');
-                }
-            }
-        });
-    </script>
 </body>
 </html>
