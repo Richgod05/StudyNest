@@ -51,35 +51,43 @@ class AdminController extends Controller
     }
 
     // 📘 Store Book
-    public function storeBook(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'title' => 'nullable|string|max:255',
-            'author' => 'nullable|string|max:255',
-            'description' => 'required|string',
-            'tags' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id',
-            'file' => 'required|file|mimes:jpg,jpeg,png,webp,pdf|max:20480',
-        ]);
+public function storeBook(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'title' => 'nullable|string|max:255',
+        'author' => 'nullable|string|max:255',
+        'description' => 'required|string',
+        'tags' => 'nullable|string',
+        'category_id' => 'required|exists:categories,id',
+        'file' => 'required|file|mimes:jpg,jpeg,png,webp,pdf|max:20480',
+    ]);
 
-        $filePath = $request->file('file')->store('books', 'public');
+    $file = $request->file('file');
 
-        Book::create([
-            'name' => $validated['name'],
-            'title' => $validated['title'] ?? null,
-            'author' => $validated['author'] ?? null,
-            'description' => $validated['description'],
-            'tags' => !empty($validated['tags'])
-                ? array_map('trim', explode(',', $validated['tags']))
-                : [],
-            'category_id' => $validated['category_id'],
-            'file' => $filePath,
-        ]);
+    $filename = time() . '_' . $file->getClientOriginalName();
 
-        return back()->with('success', 'Book uploaded successfully');
-    }
+    $file->move(public_path('images'), $filename);
 
+    $filePath = 'images/' . $filename;
+
+    Book::create([
+        'name' => $validated['name'],
+        'title' => $validated['title'] ?? null,
+        'author' => $validated['author'] ?? null,
+        'description' => $validated['description'],
+        'tags' => !empty($validated['tags'])
+            ? array_map('trim', explode(',', $validated['tags']))
+            : [],
+        'category_id' => $validated['category_id'],
+        'file' => $filePath,
+    ]);
+
+    return back()->with(
+        'success',
+        'Book uploaded successfully'
+    );
+}
     // 📖 Show Single Book
     public function show(Book $book, Request $request)
     {

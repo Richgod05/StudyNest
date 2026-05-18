@@ -35,11 +35,16 @@
         </div>
     @elseif(isset($book) && $book)
         @php
-            $imageUrl = $book->file ? \Storage::url($book->file) : null;
-            $tags = !empty($book->tags)
-                ? (is_array($book->tags) ? $book->tags : explode(',', $book->tags))
-                : [];
-        @endphp
+    $imageUrl = !empty($book->file)
+        ? asset($book->file)
+        : null;
+
+    $tags = !empty($book->tags)
+        ? (is_array($book->tags)
+            ? $book->tags
+            : explode(',', $book->tags))
+        : [];
+@endphp
 
         <div class="row justify-content-center">
             <div class="col-12">
