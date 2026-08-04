@@ -96,6 +96,76 @@
     border-radius: 12px;
     background: rgba(30,58,138,0.08);
 }
+:root {
+  --sn-primary: #0d6efd;      /* primary blue */
+  --sn-primary-dark: #0b5ed7; /* hover/darker blue */
+}
+
+/* Container tweak so top buttons don't overlap hero content */
+.hero-top-buttons {
+  gap: 0.5rem;
+}
+
+/* Shared button base */
+.hero-top-buttons .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: none;
+  transition: background-color 160ms ease, color 160ms ease, transform 120ms ease, border-color 160ms ease;
+}
+
+/* Log in: solid blue */
+.btn-login {
+  background-color: var(--sn-primary);
+  color: #fff;
+  border: 1px solid var(--sn-primary);
+}
+.btn-login:hover,
+.btn-login:focus {
+  background-color: var(--sn-primary-dark);
+  border-color: var(--sn-primary-dark);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Sign up: white with blue border; on hover becomes blue with white text */
+.btn-signup {
+  background-color: #fff;
+  color: var(--sn-primary);
+  border: 1px solid var(--sn-primary);
+}
+.btn-signup:hover,
+.btn-signup:focus {
+  background-color: var(--sn-primary);
+  color: #fff;
+  border-color: var(--sn-primary);
+  transform: translateY(-1px);
+}
+
+/* Icon sizing and alignment */
+.hero-top-buttons .bi {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Responsive: stack on very small screens */
+@media (max-width: 575.98px) {
+  .hero-top-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-top-buttons .btn {
+    width: 48%;
+    justify-content: center;
+  }
+  .hero-top-buttons .btn + .btn {
+    margin-left: 0;
+  }
+}
 
 </style>
 @endsection
@@ -104,10 +174,64 @@
 @section('content')
 
 <!-- HERO -->
-<!-- HERO -->
 <section class="hero">
 <div class="container">
 <div class="row align-items-center">
+    <div class="d-flex justify-content-end align-items-center mb-3 hero-top-buttons">
+    @guest
+        <a href="{{ route('login') }}" class="btn btn-primary me-2" aria-label="Log in">
+            <i class="bi bi-rocket-fill me-2"></i>
+            Log in
+        </a>
+        <a href="{{ route('signup') }}" class="btn btn-secondary" aria-label="Sign up">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            Sign up
+        </a>
+    @else
+        @php
+            $adminName = auth()->check() && !empty(auth()->user()->name) ? auth()->user()->name : 'User';
+            $adminImage = auth()->check() && !empty(auth()->user()->profile_photo)
+                          ? (Str::startsWith(auth()->user()->profile_photo, ['http', '/']) ? auth()->user()->profile_photo : asset('storage/' . auth()->user()->profile_photo))
+                          : asset('images/profile.png');
+        @endphp
+
+        <div class="d-flex align-items-center">
+            <div class="me-3 text-white text-end d-none d-lg-block admin-greeting">
+                <div class="small">Hello,</div>
+                <div class="fw-semibold">
+                    @if($adminName === 'User')
+                        User
+                    @else
+                        {{ $userName }}
+                    @endif
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#"
+                   id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ $userImage }}" alt="Admin avatar" class="rounded-circle admin-avatar"
+                         onerror="this.onerror=null;this.src='{{ asset('images/profile.png') }}'">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="adminDropdown">
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i> Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="#"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </div>
+        </div>
+    @endguest
+</div>
 
 <div class="col-md-6" data-aos="fade-right">
 

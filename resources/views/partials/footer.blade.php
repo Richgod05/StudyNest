@@ -1,4 +1,4 @@
-<footer class="pt-5 pb-4" style="background-color: #1E3A8A; color: #f8fafc; font-family: 'Quicksand', sans-serif;">
+<footer class="pt-5 pb-4 theme-transition" style="background-color: var(--accent); color: var(--bg); font-family: 'Quicksand', sans-serif;">
     <div class="container">
         <div class="row g-4">
             
@@ -6,13 +6,30 @@
                 <div class="mb-3">
                     <img src="{{ asset('images/studynest5.png') }}" alt="StudyNest Logo" style="height: 90px; width: auto; filter: brightness(0) invert(1);">
                 </div>
-                <p style="font-size: 0.95rem; line-height: 1.8; color: #d1d5db; max-width: 320px;">
+                <p class="mb-3" style="font-size: 0.95rem; line-height: 1.8; color: rgba(248,250,252,0.9); max-width: 320px;">
                     StudyNest is a digital learning hub dedicated to connecting curiosity with confidence. We provide the tools and community support every student needs to thrive.
                 </p>
+
+                <!-- Theme switcher (compact) -->
+                <div class="d-flex align-items-center gap-2 mt-3">
+                    <small class="text-white-50 me-2">Theme</small>
+                    <div class="btn-group" role="group" aria-label="Theme switcher">
+                        <button type="button" class="btn btn-sm btn-outline-light theme-btn" data-theme="theme-light" aria-pressed="false" title="Light theme">
+                            <i class="bi bi-sun-fill"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-light theme-btn" data-theme="theme-sepia" aria-pressed="false" title="Sepia theme">
+                            <i class="bi bi-brush"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-light theme-btn" data-theme="theme-dark" aria-pressed="false" title="Dark theme">
+                            <i class="bi bi-moon-fill"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <div class="d-flex gap-3 mt-4">
-                    <a href="#" class="text-white fs-5 hover-scale"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-white fs-5 hover-scale"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-white fs-5 hover-scale" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-white fs-5 hover-scale" aria-label="X / Twitter"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="text-white fs-5 hover-scale" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
                 </div>
             </div>
 
@@ -39,7 +56,7 @@
 
             <div class="col-lg-3 col-md-6">
                 <h6 class="fw-bold mb-4 text-white text-uppercase" style="letter-spacing: 1px; font-size: 0.9rem;">Contact Us</h6>
-                <ul class="list-unstyled" style="font-size: 0.9rem; color: #d1d5db;">
+                <ul class="list-unstyled" style="font-size: 0.9rem; color: rgba(209,213,219,0.95);">
                     <li class="d-flex mb-3 align-items-center">
                         <i class="bi bi-geo-alt-fill text-warning me-2"></i>
                         <span>Dodoma, Nane-nane Bus stand</span>
@@ -80,7 +97,7 @@
         position: relative;
         padding-bottom: 3px;
         transition: 0.3s;
-        color: #d1d5db !important;
+        color: rgba(209,213,219,0.95) !important;
     }
     .footer-links .nav-animate::after {
         content: "";
@@ -94,7 +111,6 @@
     }
     .footer-links .nav-animate:hover {
         color: #FFD700 !important;
-        padding-left: 0; /* Keeps it aligned with Navbar style */
     }
     .footer-links .nav-animate:hover::after {
         width: 100%;
@@ -114,4 +130,55 @@
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.3); }
     }
+
+    /* Active theme button styling */
+    .theme-btn.active {
+        background-color: rgba(255,255,255,0.15);
+        border-color: rgba(255,255,255,0.25);
+        color: #fff;
+    }
 </style>
+
+<script>
+    (function () {
+        // Helper to set theme using SiteTheme API if available, otherwise toggle classes directly
+        function applyTheme(theme) {
+            if (window.SiteTheme && typeof window.SiteTheme.set === 'function') {
+                window.SiteTheme.set(theme);
+            } else {
+                document.documentElement.classList.remove('theme-light','theme-sepia','theme-dark');
+                document.documentElement.classList.add(theme);
+                document.body.classList.remove('theme-light','theme-sepia','theme-dark');
+                document.body.classList.add(theme);
+                localStorage.setItem('site_theme', theme);
+            }
+            updateActiveButtons(theme);
+        }
+
+        // Update active state on buttons
+        function updateActiveButtons(activeTheme) {
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                const t = btn.getAttribute('data-theme');
+                if (t === activeTheme) {
+                    btn.classList.add('active');
+                    btn.setAttribute('aria-pressed', 'true');
+                } else {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-pressed', 'false');
+                }
+            });
+        }
+
+        // Wire up buttons
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const theme = this.getAttribute('data-theme');
+                applyTheme(theme);
+            });
+        });
+
+        // Initialize active button based on saved theme or default
+        const saved = (window.SiteTheme && typeof window.SiteTheme.get === 'function') ? window.SiteTheme.get() : (localStorage.getItem('site_theme') || 'theme-light');
+        updateActiveButtons(saved);
+    })();
+</script>

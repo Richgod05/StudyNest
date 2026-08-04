@@ -1,3 +1,51 @@
+<style>
+    /* --- Header sizing & spacing --- */
+    .navbar { padding-top: .6rem; padding-bottom: .6rem; }
+    .logo { height: 64px; width: auto; transition: transform .25s ease; }
+    .logo:hover { transform: scale(1.03); }
+
+    .brand-text { color: #fff; font-size: 1.05rem; letter-spacing: .2px; }
+
+    /* Nav link underline animation */
+    .nav-animate {
+        position: relative;
+        transition: color .25s ease;
+        padding-bottom: .25rem;
+    }
+    .nav-animate::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        left: 0;
+        bottom: 0;
+        background-color: #FFD700;
+        transition: width .25s ease;
+    }
+    .nav-animate:hover {
+        color: #FFD700 !important;
+    }
+    .nav-animate:hover::after { width: 100%; }
+
+    /* Admin avatar & greeting */
+    .admin-avatar {
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.12);
+    }
+    .admin-greeting .small { font-size: .75rem; opacity: .85; }
+    .admin-greeting .fw-semibold { font-size: .9rem; line-height: 1; }
+
+    /* Responsive tweaks */
+    @media (max-width: 991.98px) {
+        .admin-greeting { display: none; } /* hide greeting on small screens */
+        .logo { height: 56px; }
+        .navbar { padding-top: .45rem; padding-bottom: .45rem; }
+    }
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1E3A8A;">
     <div class="container">
         <!-- Brand / Logo -->
@@ -70,50 +118,3 @@
     </div>
 </nav>
 
-<style>
-    /* --- Header sizing & spacing --- */
-    .navbar { padding-top: .6rem; padding-bottom: .6rem; }
-    .logo { height: 64px; width: auto; transition: transform .25s ease; }
-    .logo:hover { transform: scale(1.03); }
-
-    .brand-text { color: #fff; font-size: 1.05rem; letter-spacing: .2px; }
-
-    /* Nav link underline animation */
-    .nav-animate {
-        position: relative;
-        transition: color .25s ease;
-        padding-bottom: .25rem;
-    }
-    .nav-animate::after {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 2px;
-        left: 0;
-        bottom: 0;
-        background-color: #FFD700;
-        transition: width .25s ease;
-    }
-    .nav-animate:hover {
-        color: #FFD700 !important;
-    }
-    .nav-animate:hover::after { width: 100%; }
-
-    /* Admin avatar & greeting */
-    .admin-avatar {
-        width: 44px;
-        height: 44px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.12);
-    }
-    .admin-greeting .small { font-size: .75rem; opacity: .85; }
-    .admin-greeting .fw-semibold { font-size: .9rem; line-height: 1; }
-
-    /* Responsive tweaks */
-    @media (max-width: 991.98px) {
-        .admin-greeting { display: none; } /* hide greeting on small screens */
-        .logo { height: 56px; }
-        .navbar { padding-top: .45rem; padding-bottom: .45rem; }
-    }
-</style>

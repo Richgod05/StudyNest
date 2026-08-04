@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -48,6 +49,12 @@ Route::post('/admin/store-category', [AdminController::class, 'storeCategory'])-
 
 // 🌐 Learning Hub (All Books)
 Route::get('/learning-hub', [AdminController::class, 'learningHub'])->name('learning.hub');
-
-
 Route::get('/books/{book}', [AdminController::class, 'show'])->name('books.show');
+
+//login and sign up for web
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');
+Route::post('/signup', [AuthController::class, 'signup']);
+
