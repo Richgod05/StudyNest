@@ -5,6 +5,7 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\LoginController;
 
 Route::get('/', function () {
     return view('studynest');
@@ -44,6 +45,10 @@ Route::post('/admin/store-book', [AdminController::class, 'storeBook'])->name('a
 // 🗂️ Category Upload
 Route::get('/admin/add-category', [AdminController::class, 'showCategoryUpload'])->name('admin.addCategory');
 Route::post('/admin/store-category', [AdminController::class, 'storeCategory'])->name('admin.storeCategory');
+
+//admin login
+Route::get('/admin/login', [LoginController::class, 'login'])->name('admin.login');
+Route::post('/admin/authenticate', [LoginController::class, 'authenticate'])->name('admin.authenticate');
 
 
 
