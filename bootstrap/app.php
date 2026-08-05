@@ -18,8 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
 
         $middleware -> redirectTo(
-            guests: '/login',
-            users: '/logout'
+            guests: 'studynest/login',
+            users: 'studynest/logout'
         );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
