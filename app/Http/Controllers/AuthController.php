@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         // Redirect if already logged in
         if (Auth::check()) {
-            return redirect()->route('learninghub');
+            return redirect()->route('learning.hub');
         }
 
         return view('login');
@@ -26,7 +26,7 @@ class AuthController extends Controller
     public function login()
     {
         if (Auth::check()) {
-            return redirect()->route('learninghub');
+            return redirect()->route('learning.hub');
         }
 
         return view('signup');
@@ -60,7 +60,7 @@ class AuthController extends Controller
         // Log in after registration
         Auth::login($user);
 
-        return redirect()->route('learninghub')->with('success', 'You have logged in successfully!');
+        return redirect()->route('learning.hub')->with('success', 'You have logged in successfully!');
     }
 
     // Authenticate user
@@ -80,7 +80,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('learninghub');
+            return redirect()->route('learning.hub');
         }
 
         return redirect()->route('signup')->with('error', 'Either password or email is incorrect!');
