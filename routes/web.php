@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\LoginController;
