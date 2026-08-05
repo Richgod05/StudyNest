@@ -1,12 +1,12 @@
 @extends('layouts.layout')
-@section('title', 'Login - StudyNest')
+@section('title', 'Admin Login - StudyNest')
 
 @section('content')
 <section class="hero py-5">
   <div class="container">
-    <h2 class="fw-bold text-primary mb-4">Login for StudyNest</h2>
+    <h2 class="fw-bold text-primary mb-4">Admin Login</h2>
 
-    <form method="POST" action="{{ route('authenticate') }}" class="shadow p-4 rounded bg-white">
+    <form method="POST" action="{{ route('admin.authenticate') }}" class="shadow p-4 rounded bg-white">
       @csrf
       @if (Session::has('success'))
                     <div class="alert alert-success">{{ Session::get('success') }}</div>
