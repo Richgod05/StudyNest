@@ -181,11 +181,11 @@
     @guest
         <a href="{{ route('login') }}" class="btn btn-primary me-2" aria-label="Log in">
             <i class="bi bi-rocket-fill me-2"></i>
-            Log in
+            Register
         </a>
         <a href="{{ route('signup') }}" class="btn btn-secondary" aria-label="Sign up">
             <i class="bi bi-info-circle-fill me-2"></i>
-            Sign up
+            Log in
         </a>
     @else
         @php
