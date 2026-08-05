@@ -52,9 +52,9 @@ Route::get('/learning-hub', [AdminController::class, 'learningHub'])->name('lear
 Route::get('/books/{book}', [AdminController::class, 'show'])->name('books.show');
 
 //login and sign up for web
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/process_register', [AuthController::class, 'processRegister'])->name('process_register');
 
-Route::get('/signup', [AuthController::class, 'showSignup'])->name('signup');
-Route::post('/signup', [AuthController::class, 'signup']);
+Route::get('/signup', [AuthController::class, 'login'])->name('signup');
+Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 
