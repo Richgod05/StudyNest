@@ -58,3 +58,4 @@ Route::post('/process_register', [AuthController::class, 'processRegister'])->na
 Route::get('/signup', [AuthController::class, 'login'])->name('signup');
 Route::post('/authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');

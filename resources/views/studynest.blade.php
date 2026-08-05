@@ -189,8 +189,8 @@
         </a>
     @else
         @php
-            $adminName = auth()->check() && !empty(auth()->user()->name) ? auth()->user()->name : 'User';
-            $adminImage = auth()->check() && !empty(auth()->user()->profile_photo)
+            $name = auth()->check() && !empty(auth()->user()->name) ? auth()->user()->name : 'User';
+            $mage = auth()->check() && !empty(auth()->user()->profile_photo)
                           ? (Str::startsWith(auth()->user()->profile_photo, ['http', '/']) ? auth()->user()->profile_photo : asset('storage/' . auth()->user()->profile_photo))
                           : asset('images/profile.png');
         @endphp
@@ -199,10 +199,10 @@
             <div class="me-3 text-white text-end d-none d-lg-block admin-greeting">
                 <div class="small">Hello,</div>
                 <div class="fw-semibold">
-                    @if($adminName === 'User')
+                    @if($name === 'User')
                         User
                     @else
-                        {{ $userName }}
+                        {{ $name }}
                     @endif
                 </div>
             </div>
@@ -210,7 +210,7 @@
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#"
                    id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ $userImage }}" alt="Admin avatar" class="rounded-circle admin-avatar"
+                    <img src="#" alt="Admin avatar" class="rounded-circle admin-avatar"
                          onerror="this.onerror=null;this.src='{{ asset('images/profile.png') }}'">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="adminDropdown">
