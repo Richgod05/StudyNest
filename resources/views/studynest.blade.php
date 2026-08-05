@@ -165,6 +165,49 @@
   .hero-top-buttons .btn + .btn {
     margin-left: 0;
   }
+
+/* Admin avatar */
+.admin-avatar {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.12);
+}
+.admin-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* Greeting text */
+.admin-greeting .small {
+  font-size: .75rem;
+  opacity: .85;
+}
+.admin-greeting .fw-semibold {
+  font-size: .9rem;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+}
+.dropdown-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: background-color 120ms ease;
+}
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+.dropdown-menu .dropdown-item.text-danger:hover {
+  background-color: #fdd;
+}
+
 }
 
 </style>
@@ -190,13 +233,10 @@
     @else
         @php
             $name = auth()->check() && !empty(auth()->user()->name) ? auth()->user()->name : 'User';
-            $mage = auth()->check() && !empty(auth()->user()->profile_photo)
-                          ? (Str::startsWith(auth()->user()->profile_photo, ['http', '/']) ? auth()->user()->profile_photo : asset('storage/' . auth()->user()->profile_photo))
-                          : asset('images/profile.png');
         @endphp
 
         <div class="d-flex align-items-center">
-            <div class="me-3 text-white text-end d-none d-lg-block admin-greeting">
+            <div class="me-3 text-blue text-end d-none d-lg-block admin-greeting">
                 <div class="small">Hello,</div>
                 <div class="fw-semibold">
                     @if($name === 'User')
@@ -210,8 +250,7 @@
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#"
                    id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="#" alt="Admin avatar" class="rounded-circle admin-avatar"
-                         onerror="this.onerror=null;this.src='{{ asset('images/profile.png') }}'">
+                    
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="adminDropdown">
                     <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i> Profile</a></li>
