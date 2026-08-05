@@ -12,8 +12,8 @@ class AdminRedirect
     public function handle(Request $request, Closure $next)
     {
         // If already logged in as admin, send to dashboard
-        if (Auth::guard('admins')->check()) {
-            return redirect()->route('admin.home');
+        if (Auth::guard('admin')->check()) {
+            return redirect()->route('admin.login');
         }
 
         // Otherwise proceed to login form or authenticate
