@@ -171,7 +171,7 @@
     <div class="container-fluid">
         <div class="row g-0">
 
-            @if(Request::is('learning-hub*'))
+            @if(Request::is('studynest/learning-hub*'))
 
                 <!-- SIDEBAR -->
                 <aside class="col-lg-3 col-xl-2 sidebar-column card-surface" id="hubSidebar">
