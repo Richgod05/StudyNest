@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'StudyNest')</title>
+    <title>@yield('title', 'Admin-StudyNest')</title>
 
     
 

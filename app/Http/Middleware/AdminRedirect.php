@@ -13,7 +13,7 @@ class AdminRedirect
     {
         // If already logged in as admin, send to dashboard
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.login');
+            return redirect()->route('admin.home');
         }
 
         // Otherwise proceed to login form or authenticate
